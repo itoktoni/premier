@@ -21,7 +21,7 @@ class DetailRepository extends MasterRepository implements CrudInterface
         $query = $this->model
             ->select('*')
             ->leftJoinRelationship('has_view')
-            ->sortable()->filter();
+            ->sortable()->filter()->permision();
 
         if (request()->hasHeader('authorization')) {
             if ($paging = request()->get('paginate')) {

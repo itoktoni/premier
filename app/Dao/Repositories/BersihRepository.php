@@ -18,7 +18,7 @@ class BersihRepository extends MasterRepository implements CrudInterface
     public function dataRepository()
     {
         $query = ViewBersih::query()
-            ->sortable()->filter();
+            ->sortable()->filter()->permision();
 
         if (request()->hasHeader('authorization')) {
             if ($paging = request()->get('paginate')) {

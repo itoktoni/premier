@@ -21,9 +21,13 @@ File: Main Js File
         $('.large-only').hide();
     }
 
-    $(".search").select2();
+    $(".search").select2({
+         theme: 'bootstrap-5'
+    });
 
-    $(".tag").select2();
+    $(".tag").select2({
+         theme: 'bootstrap-5'
+    });
 
     var language = localStorage.getItem('language');
     // Default Language

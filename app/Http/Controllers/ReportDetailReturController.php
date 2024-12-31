@@ -7,6 +7,7 @@ use App\Dao\Models\Rs;
 use App\Dao\Models\User;
 use App\Dao\Repositories\TransaksiRepository;
 use App\Http\Requests\TransactionReportRequest;
+use Plugins\Query;
 
 class ReportDetailReturController extends MinimalController
 {
@@ -20,7 +21,7 @@ class ReportDetailReturController extends MinimalController
     protected function beforeForm()
     {
 
-        $rs = Rs::getOptions();
+        $rs = Query::getRs();
         $user = User::getOptions();
 
         self::$share = [

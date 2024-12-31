@@ -9,3 +9,14 @@
 
 <!-- App Css-->
 <link href="{{ url('assets/css/app.min.css') }}" id="app-style" rel="stylesheet" type="text/css" />
+
+<style>
+    .select2-container--bootstrap-5 .select2-selection{
+        font-size: .875rem !important;
+    }
+
+    .select2-container--bootstrap-5 .select2-dropdown .select2-results__options .select2-results__option{
+        font-size: .875rem !important;
+    }
+
+</style>

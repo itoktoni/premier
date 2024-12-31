@@ -6,6 +6,7 @@ use App\Dao\Models\JenisLinen;
 use App\Dao\Models\Rs;
 use App\Dao\Models\Ruangan;
 use Livewire\Component;
+use Plugins\Query;
 
 class DropdownRs extends Component
 {
@@ -25,7 +26,7 @@ class DropdownRs extends Component
 
     public function mount()
     {
-        $this->data_rs = Rs::getOptions()->toArray();
+        $this->data_rs = Query::getRs();
         $this->data_ruangan = Ruangan::getOptions();
         $this->data_jenis = JenisLinen::getOptions();
     }

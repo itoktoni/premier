@@ -10,6 +10,7 @@ use App\Dao\Models\User;
 use App\Dao\Repositories\BersihRepository;
 use App\Http\Requests\DeliveryReportRequest;
 use Illuminate\Support\Facades\DB;
+use Plugins\Query;
 
 class ReportDetailPengirimanBersihController extends MinimalController
 {
@@ -22,7 +23,7 @@ class ReportDetailPengirimanBersihController extends MinimalController
 
     protected function beforeForm()
     {
-        $rs = Rs::getOptions();
+        $rs = Query::getRs();
         $user = User::getOptions();
 
         self::$share = [

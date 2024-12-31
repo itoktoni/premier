@@ -16,6 +16,7 @@ use App\Dao\Repositories\TransaksiRepository;
 use App\Http\Requests\DeleteRequest;
 use App\Http\Services\DeleteService;
 use App\Http\Services\SingleService;
+use Plugins\Query;
 use Plugins\Response;
 
 class TransaksiDetailController extends MasterController
@@ -38,7 +39,7 @@ class TransaksiDetailController extends MasterController
     {
         $data = $this->getData();
         $ruangan = Ruangan::getOptions();
-        $rs = Rs::getOptions();
+        $rs = Query::getRs();
         $linen = JenisLinen::getOptions();
         $status = DetailType::getOptions();
         $user = User::getOptions();

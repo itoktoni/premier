@@ -5,6 +5,7 @@ namespace Plugins;
 use App\Dao\Models\Detail;
 use App\Dao\Models\Filters;
 use App\Dao\Models\Opname;
+use App\Dao\Models\Rs;
 use App\Dao\Models\SystemGroup;
 use App\Dao\Models\SystemLink;
 use App\Dao\Models\SystemMenu;
@@ -230,5 +231,19 @@ class Query
             ->join(Transaksi::getTableName(), Transaksi::field_rfid(), Detail::field_primary());
 
         return $query;
+    }
+
+    public static function getRs()
+    {
+        $rs = Rs::getOptions();
+        $user_rs = auth()->user()->rs_id;
+
+        if($user_rs){
+            $rs = [
+                $user_rs => $rs[$user_rs]
+            ];
+        }
+
+        return $rs;
     }
 }

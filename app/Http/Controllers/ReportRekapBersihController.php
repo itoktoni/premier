@@ -10,6 +10,7 @@ use App\Dao\Repositories\TransaksiRepository;
 use App\Http\Requests\RekapReportRequest;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
+use Plugins\Query;
 
 class ReportRekapBersihController extends MinimalController
 {
@@ -23,7 +24,7 @@ class ReportRekapBersihController extends MinimalController
     protected function beforeForm()
     {
 
-        $rs = Rs::getOptions();
+        $rs = Query::getRs();
         $user = User::getOptions();
 
         self::$share = [

@@ -16,6 +16,8 @@ use Kyslik\ColumnSortable\Sortable;
 use Mehradsadeghi\FilterQueryString\FilterQueryString as FilterQueryString;
 use Touhidurabir\ModelSanitize\Sanitizable as Sanitizable;
 use Wildside\Userstamps\Userstamps;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Auth;
 
 class Transaksi extends Model
 {
@@ -59,6 +61,7 @@ class Transaksi extends Model
     protected $casts = [
         'transaksi_rfid' => 'string',
         'transaksi_status' => 'string',
+        'transaksi_created_at' => 'date:Y-m-d',
     ];
 
     protected $filters = [
@@ -125,6 +128,15 @@ class Transaksi extends Model
     public function apiTransform()
     {
         return GeneralResource::class;
+    }
+
+    public function scopePermision(Builder $query)
+    {
+        $rs = auth()->user()->rs_id;
+        if($rs)
+        {
+            $query->where(Transaksi::field_rs_ori(), $rs);
+        }
     }
 
     public function has_rfid()

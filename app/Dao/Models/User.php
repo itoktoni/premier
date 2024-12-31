@@ -34,6 +34,7 @@ class User extends Authenticatable
         'level',
         'vendor',
         'active',
+        'rs_id',
     ];
 
     public $sortable = [

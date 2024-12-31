@@ -9,6 +9,7 @@ use App\Dao\Models\Ruangan;
 use App\Dao\Models\ViewDetailLinen;
 use App\Dao\Repositories\DetailRepository;
 use Illuminate\Http\Request;
+use Plugins\Query;
 use Spatie\SimpleExcel\SimpleExcelWriter;
 
 class ReportDataLinenController extends MinimalController
@@ -23,7 +24,7 @@ class ReportDataLinenController extends MinimalController
     protected function beforeForm()
     {
 
-        $rs = Rs::getOptions();
+        $rs = Query::getRs();
         $ruangan = Ruangan::getOptions();
         $kategori = Kategori::getOptions();
         $jenis = JenisLinen::getOptions();

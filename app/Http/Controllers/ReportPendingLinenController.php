@@ -16,6 +16,7 @@ use App\Dao\Repositories\DetailRepository;
 use App\Dao\Repositories\OutstandingRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Plugins\Query;
 
 class ReportPendingLinenController extends MinimalController
 {
@@ -28,7 +29,7 @@ class ReportPendingLinenController extends MinimalController
 
     protected function beforeForm()
     {
-        $rs = Rs::getOptions();
+        $rs = Query::getRs();
         $jenis = JenisLinen::getOptions();
         $ruangan = Ruangan::getOptions();
         $cuci = CuciType::getOptions();

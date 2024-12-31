@@ -18,6 +18,7 @@ use Kyslik\ColumnSortable\Sortable;
 use Mehradsadeghi\FilterQueryString\FilterQueryString as FilterQueryString;
 use Touhidurabir\ModelSanitize\Sanitizable as Sanitizable;
 use Wildside\Userstamps\Userstamps;
+use Illuminate\Database\Eloquent\Builder;
 
 class Detail extends Model
 {
@@ -129,6 +130,15 @@ class Detail extends Model
     public function apiTransform()
     {
         return GeneralResource::class;
+    }
+
+    public function scopePermision(Builder $query)
+    {
+        $rs = auth()->user()->rs_id;
+        if($rs)
+        {
+            $query->where(Detail::field_rs_id(), $rs);
+        }
     }
 
     public function has_jenis()

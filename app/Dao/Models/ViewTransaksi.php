@@ -14,6 +14,8 @@ use Kyslik\ColumnSortable\Sortable;
 use Mehradsadeghi\FilterQueryString\FilterQueryString as FilterQueryString;
 use Touhidurabir\ModelSanitize\Sanitizable as Sanitizable;
 use Wildside\Userstamps\Userstamps;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Auth;
 
 class ViewTransaksi extends Transaksi
 {
@@ -88,5 +90,14 @@ class ViewTransaksi extends Transaksi
     public function has_ruangan()
     {
         return $this->hasOne(Ruangan::class, Ruangan::field_primary(), self::field_ruangan_id());
+    }
+
+    public function scopePermision(Builder $query)
+    {
+        $rs = auth()->user()->rs_id;
+        if($rs)
+        {
+            $query->where('transaksi_id_rs', $rs);
+        }
     }
 }

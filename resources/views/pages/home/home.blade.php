@@ -10,7 +10,7 @@
                         <div class="col-12">
                             <span class="text-muted mb-3 lh-1 d-block text-truncate">Bersih hari ini</span>
                             <h4 class="mb-3">
-                                <span class="counter-value" data-target="27"></span>
+                                <span class="counter-value" data-target="{{ $bersih }}"></span>
                             </h4>
                         </div>
                     </div>
@@ -27,7 +27,7 @@
                         <div class="col-6">
                             <span class="text-muted mb-3 lh-1 d-block text-truncate">Kotor hari ini</span>
                             <h4 class="mb-3">
-                                <span class="counter-value" data-target="6258"></span>
+                                <span class="counter-value" data-target="{{ $kotor }}"></span>
                             </h4>
                         </div>
                     </div>
@@ -44,7 +44,7 @@
                         <div class="col-6">
                             <span class="text-muted mb-3 lh-1 d-block text-truncate">Reject hari ini</span>
                             <h4 class="mb-3">
-                                <span class="counter-value" data-target="240"></span>
+                                <span class="counter-value" data-target="{{ $reject }}"></span>
                             </h4>
                         </div>
                     </div>
@@ -59,9 +59,9 @@
                 <div class="card-body">
                     <div class="row align-items-center">
                         <div class="col-6">
-                            <span class="text-muted mb-3 lh-1 d-block text-truncate">Retur hari ini</span>
+                            <span class="text-muted mb-3 lh-1 d-block text-truncate">Rewash hari ini</span>
                             <h4 class="mb-3">
-                                <span class="counter-value" data-target="230"></span>
+                                <span class="counter-value" data-target="{{ $rewash }}"></span>
                             </h4>
                         </div>
                     </div>
@@ -71,14 +71,14 @@
     </div><!-- end row-->
 
     <div class="row">
-        <div class="col-xl-6">
+        <div class="col-xl-7">
             <!-- card -->
             <div class="card card-h-100">
                 <!-- card body -->
                 <div class="card-body">
                     <div class="row align-items-center">
                         <div class="col-sm">
-                            {!! $kotor->container() !!}
+                            {!! $sebaran->container() !!}
                         </div>
                     </div>
                 </div>
@@ -86,11 +86,11 @@
             <!-- end card -->
         </div>
         <!-- end col -->
-        <div class="col-xl-6">
-            <div class="card card-h-100">
+        <div class="col-xl-5">
+            <div class="card card-h-400">
                 <!-- card body -->
                 <div class="card-body">
-                    {!! $bersih->container() !!}
+                    {!! $perbandingan->container() !!}
                 </div>
             </div>
         </div>
@@ -99,8 +99,23 @@
 
     @push('footer')
     <script src="{{ @asset('vendor/larapex-charts/apexcharts.js') }}"></script>
-    {{ $kotor->script() }}
-    {{ $bersih->script() }}
+    {{ $sebaran->script() }}
+    {{ $perbandingan->script() }}
+
+
+    <style>
+        .apexcharts-legend-series{
+            margin-bottom: 5px !important;
+        }
+
+        .apexcharts-legend{
+            bottom: -5px !important;
+        }
+
+        .page-content {
+            padding: 50px calc(20px / 2) 60px calc(20px / 2) !important;
+        }
+    </style>
     @endpush
 
 </x-layout>

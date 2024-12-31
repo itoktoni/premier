@@ -9,6 +9,7 @@ use App\Dao\Traits\ApiTrait;
 use App\Dao\Traits\DataTableTrait;
 use App\Dao\Traits\OptionTrait;
 use App\Http\Resources\GeneralResource;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Kirschbaum\PowerJoins\PowerJoins;
 use Kyslik\ColumnSortable\Sortable;
@@ -69,6 +70,17 @@ class Bersih extends Model
             DataBuilder::build($this->field_description())->name('Deskripsi')->show()->sort(),
         ];
     }
+
+    public function scopePermision(Builder $query)
+    {
+        $rs = auth()->user()->rs_id;
+        if($rs)
+        {
+
+            $query->where(Bersih::field_rs_id(), $rs);
+        }
+    }
+
 
     public function apiTransform()
     {

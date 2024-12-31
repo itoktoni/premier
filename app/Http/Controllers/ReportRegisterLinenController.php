@@ -10,6 +10,7 @@ use App\Dao\Models\Ruangan;
 use App\Dao\Models\ViewDetailLinen;
 use App\Dao\Repositories\DetailRepository;
 use Illuminate\Http\Request;
+use Plugins\Query;
 
 class ReportRegisterLinenController extends MinimalController
 {
@@ -23,7 +24,7 @@ class ReportRegisterLinenController extends MinimalController
     protected function beforeForm()
     {
 
-        $rs = Rs::getOptions();
+        $rs = Query::getRs();
         $jenis = JenisLinen::getOptions();
         $ruangan = Ruangan::getOptions();
         $cuci = CuciType::getOptions();

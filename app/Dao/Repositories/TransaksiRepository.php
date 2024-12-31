@@ -40,7 +40,7 @@ class TransaksiRepository extends MasterRepository implements CrudInterface
     {
         $query = $this->model
             ->select($this->model->getSelectedField())
-            ->sortable()->filter();
+            ->sortable()->filter()->permision();
 
         return $this->filterRepository($query);
     }
@@ -69,7 +69,8 @@ class TransaksiRepository extends MasterRepository implements CrudInterface
             ->leftJoin(Rs::getTableName() . ' as scan', function ($join) {
                 $join->on('transaksi.transaksi_rs_scan', '=', 'scan.rs_id');
             })
-            ->filter();
+            ->filter()
+            ->permision();
     }
 
     public function getDetailKotor($status = false)

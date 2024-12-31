@@ -11,6 +11,7 @@ use App\Dao\Repositories\BersihRepository;
 use App\Dao\Repositories\TransaksiRepository;
 use App\Http\Requests\DeliveryReportRequest;
 use Illuminate\Support\Facades\DB;
+use Plugins\Query;
 
 class ReportDetailPengirimanReturController extends MinimalController
 {
@@ -24,7 +25,7 @@ class ReportDetailPengirimanReturController extends MinimalController
     protected function beforeForm()
     {
 
-        $rs = Rs::getOptions();
+        $rs = Query::getRs();
         $user = User::getOptions();
 
         self::$share = [
