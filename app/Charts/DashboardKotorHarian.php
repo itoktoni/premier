@@ -19,7 +19,7 @@ class DashboardKotorHarian
 
     public function build()
     {
-
+        $ruangan = $total = [];
         $rs_id = auth()->user()->rs_id;
         if ($rs_id) {
             $data_detail = ViewDetailLinen::select([ViewDetailLinen::field_ruangan_name(), DB::raw('count(view_linen_rfid) as total')])->where(ViewDetailLinen::field_rs_id(), $rs_id)
