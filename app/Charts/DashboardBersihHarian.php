@@ -25,6 +25,7 @@ class DashboardBersihHarian
         $range = CarbonPeriod::create($start_date, $end_date)->toArray();
         $bersih = [];
         $kotor = [];
+        $date = [];
 
         $rs_id = auth()->user()->rs_id;
         if ($rs_id)
@@ -43,12 +44,12 @@ class DashboardBersihHarian
                     $item['tanggal'] = $item->transaksi_created_at->format('Y-m-d') ?? null;
                     return $item;
                 });
-        }
 
-        foreach($range as $dates){
-            $date[] = $dates->format('m-d');
-            $bersih[] = $data_bersih->where(Bersih::field_report(), $dates->format('Y-m-d'))->count();
-            $kotor[] = $data_kotor->where('tanggal', $dates->format('Y-m-d'))->count();
+                foreach($range as $dates){
+                    $date[] = $dates->format('m-d');
+                    $bersih[] = $data_bersih->where(Bersih::field_report(), $dates->format('Y-m-d'))->count();
+                    $kotor[] = $data_kotor->where('tanggal', $dates->format('Y-m-d'))->count();
+                }
         }
 
 
