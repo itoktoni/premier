@@ -33,13 +33,13 @@ class DashboardBersihHarian
                 ->where(Bersih::field_report(), '>=', $start_date->format('Y-m-d'))
                 ->where(Bersih::field_report(), '<=', $end_date->format('Y-m-d'))
                 ->where(Bersih::field_status(), TransactionType::BERSIH)
-                ->showSql()->get();
+                ->get();
 
             $data_kotor = Transaksi::where(Transaksi::field_rs_ori(), auth()->user()->rs_id)
                 ->whereDate(Transaksi::field_created_at(), '>=', $start_date->format('Y-m-d'))
                 ->whereDate(Transaksi::field_created_at(), '<=', $end_date->format('Y-m-d'))
                 ->where(Transaksi::field_status_transaction(), TransactionType::KOTOR)
-                ->showSql()->get()->map(function($item){
+                ->get()->map(function($item){
                     $item['tanggal'] = $item->transaksi_created_at->format('Y-m-d') ?? null;
                     return $item;
                 });
