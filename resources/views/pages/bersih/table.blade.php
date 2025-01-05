@@ -29,8 +29,6 @@
 
         <x-form method="POST" action="{{ moduleRoute('getTable') }}">
 
-            <x-action/>
-
             <div class="container-fluid">
                 <div class="table-responsive" id="table_data">
                     <table class="table table-bordered table-striped overflow max-content">

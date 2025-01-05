@@ -13,9 +13,6 @@
                     <table class="table table-bordered table-striped overflow">
                         <thead>
                             <tr>
-                                <th width="9" class="center">
-                                    <input class="btn-check-d" type="checkbox">
-                                </th>
                                 <th class="text-center column-action">{{ __('Action') }}</th>
                                 <th class="text-center column-checkbox">{{ __('No.') }}</th>
                                 @foreach($fields as $value)
@@ -32,10 +29,6 @@
                         <tbody>
                             @forelse($data as $key => $table)
                                 <tr>
-                                    <td>
-                                        <input type="checkbox" class="checkbox" name="code[]"
-                                            value="{{ $table->field_primary }}">
-                                    </td>
                                     <td class="col-md-2 text-center column-action">
                                         <div class="">
                                             <x-button module="getUpdate" key="{{ $table->field_primary }}" color="primary"
