@@ -36,9 +36,6 @@
                     <table class="table table-bordered table-striped overflow max-content">
                         <thead>
                             <tr>
-                                <th width="9" class="center">
-                                    <input class="btn-check-d" type="checkbox">
-                                </th>
                                 <th class="text-center column-checkbox">{{ __('No.') }}</th>
                                 <th>NO. DELIVERY</th>
                                 <th>NO. PACKING</th>
@@ -54,10 +51,6 @@
                         <tbody>
                             @forelse($data as $key => $table)
                                 <tr>
-                                    <td>
-                                        <input type="checkbox" class="checkbox" name="code[]"
-                                            value="{{ $table->field_primary }}">
-                                    </td>
                                     <td>{{ iteration($data, $key) }}</td>
                                     <td>{{ $table->field_delivery }}</td>
                                     <td>{{ $table->field_barcode }}</td>

@@ -8,8 +8,6 @@
 
         <x-form method="POST" action="{{ moduleRoute('getTable') }}">
 
-            <x-action/>
-
             <div class="container-fluid">
                 <div class="table-responsive" id="table_data">
                     <table class="table table-bordered table-striped overflow">
@@ -39,7 +37,10 @@
                                             value="{{ $table->field_primary }}">
                                     </td>
                                     <td class="col-md-2 text-center column-action">
-                                        <x-crud :model="$table" />
+                                        <div class="">
+                                            <x-button module="getUpdate" key="{{ $table->field_primary }}" color="primary"
+                                                icon="document-edit" label="Detail" />
+                                        </div>
                                     </td>
                                     <td>{{ iteration($data, $key) }}</td>
                                     <td>{{ $table->field_status_transaction }}</td>

@@ -23,16 +23,11 @@
 
         <x-form method="POST" action="{{ moduleRoute('getTable') }}">
 
-            <x-action/>
-
             <div class="container-fluid">
                 <div class="table-responsive" id="table_data">
                     <table class="table table-bordered table-striped overflow max-content">
                         <thead>
                             <tr>
-                                <th width="9" class="center">
-                                    <input class="btn-check-d" type="checkbox">
-                                </th>
                                 <th style="width: 100px" class="text-center column-action">{{ __('Action') }}</th>
                                 <th class="text-center column-checkbox">{{ __('No.') }}</th>
                                 <th class="text-left">NO. RFID</th>
@@ -58,16 +53,12 @@
                         <tbody>
                             @forelse($data as $key => $table)
                                 <tr>
-                                    <td>
-                                        <input type="checkbox" class="checkbox" name="code[]"
-                                            value="{{ $table->field_primary }}">
-                                    </td>
                                     <td class="col-md-3 text-center column-action">
                                         @if(!empty($table->field_primary))
-                                        <x-crud :model="$table">
-                                            <x-button module="getHistory" key="{{ $table->field_primary }}" color="success"
-                                                icon="time-reverse" />
-                                        </x-crud>
+                                       <div class="">
+                                        <x-button module="getHistory" key="{{ $table->field_primary }}" color="success"
+                                            icon="time-reverse" label="History"/>
+                                       </div>
                                         @else
                                         @endif
                                     </td>

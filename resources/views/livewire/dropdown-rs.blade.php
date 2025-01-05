@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container-fluid">
 
     <div class="row">
         <x-form-select col="{{ $hide ? 6 : 4 }}" wire:model.live="id_rs" label="Rumah sakit" name="view_rs_id" value="{{ $id_rs }}" :options="$data_rs" />
