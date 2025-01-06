@@ -52,12 +52,12 @@
 				<td>{{ $table->field_delivery }}</td>
 				<td>{{ $table->field_barcode }}</td>
 				<td>{{ $table->field_rfid }}</td>
-				<td>{{ $table->view_linen_nama }}</td>
-				<td>{{ $table->view_rs_nama }}</td>
-				<td>{{ $table->view_ruangan_nama }}</td>
-				<td>{{ formatDate($table->transaksi_delivery_at) }}</td>
-				<td>{{ formatDate($table->view_tanggal_create) }}</td>
-				<td>{{ $table->user_delivery ?? '' }}</td>
+				<td>{{ $table->jenis_nama }}</td>
+				<td>{{ $table->rs_nama }}</td>
+				<td>{{ $table->ruangan_nama }}</td>
+				<td>{{ formatDate($table->bersih_report) }}</td>
+				<td>{{ formatDate($table->bersih_created_at) }}</td>
+				<td>{{ $table->name ?? '' }}</td>
 			</tr>
 			@empty
 			@endforelse
