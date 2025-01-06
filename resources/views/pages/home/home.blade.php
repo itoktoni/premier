@@ -113,7 +113,7 @@
         }
 
         .page-content {
-            padding: 50px calc(20px / 2) 60px calc(20px / 2) !important;
+            padding: 90px calc(20px / 2) 60px calc(20px / 2) !important;
         }
     </style>
     @endpush
