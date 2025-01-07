@@ -51,7 +51,7 @@ class ReportRekapLinenBaruController extends MinimalController
 
     private function getQueryKotor($request)
     {
-        $query = DB::table('view_rekap_kotor')
+        $query = DB::table('view_rekap_bersih')
         ->where('view_rs_id', $request->rs_id)
         ->where('view_status', TransactionType::REGISTER)
         ;
