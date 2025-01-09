@@ -54,10 +54,10 @@ class DashboardBersihVsKotor
 
 
         return $this->chart->barChart()
-            ->setTitle('Perbandingan Bersih dan Kotor 7 hari kebelakang')
-            ->setSubtitle('Bersih vs Kotor.')
-            ->addData('Bersih', $bersih)
+            ->setTitle('Perbandingan Kotor dan Bersih 7 hari kebelakang')
+            ->setSubtitle('Kotor Vs Bersih.')
             ->addData('Kotor', $kotor)
+            ->addData('Bersih', $bersih)
             ->setXAxis($date);
     }
 }
