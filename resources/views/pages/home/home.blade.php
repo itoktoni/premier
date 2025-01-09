@@ -42,7 +42,7 @@
                 <div class="card-body">
                     <div class="row align-items-center">
                         <div class="col-6">
-                            <span class="text-muted mb-3 lh-1 d-block text-truncate">Reject hari ini</span>
+                            <span class="text-muted mb-3 lh-1 d-block text-truncate">Retur hari ini</span>
                             <h4 class="mb-3">
                                 <span class="counter-value" data-target="{{ $reject }}"></span>
                             </h4>
@@ -71,14 +71,14 @@
     </div><!-- end row-->
 
     <div class="row">
-        <div class="col-xl-7">
+        <div class="col-xl-12">
             <!-- card -->
             <div class="card card-h-100">
                 <!-- card body -->
                 <div class="card-body">
                     <div class="row align-items-center">
                         <div class="col-sm">
-                            {!! $sebaran->container() !!}
+                            {!! $dkotor->container() !!}
                         </div>
                     </div>
                 </div>
@@ -86,21 +86,32 @@
             <!-- end card -->
         </div>
         <!-- end col -->
-        <div class="col-xl-5">
+        <div class="col-xl-12">
             <div class="card card-h-400">
                 <!-- card body -->
                 <div class="card-body">
-                    {!! $perbandingan->container() !!}
+                    {!! $dbersih->container() !!}
                 </div>
             </div>
         </div>
         <!-- end col -->
+
+        <div class="col-xl-12">
+            <div class="card card-h-400">
+                <!-- card body -->
+                <div class="card-body">
+                    {!! $dperbandingan->container() !!}
+                </div>
+            </div>
+        </div>
+
     </div>
 
     @push('footer')
     <script src="{{ @asset('vendor/larapex-charts/apexcharts.js') }}"></script>
-    {{ $sebaran->script() }}
-    {{ $perbandingan->script() }}
+    {{ $dkotor->script() }}
+    {{ $dbersih->script() }}
+    {{ $dperbandingan->script() }}
 
 
     <style>

@@ -5,9 +5,11 @@ namespace App\Charts;
 use App\Dao\Enums\TransactionType;
 use App\Dao\Models\Bersih;
 use App\Dao\Models\Transaksi;
+use App\Dao\Models\ViewBersih;
 use ArielMejiaDev\LarapexCharts\LarapexChart;
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
+use Illuminate\Support\Facades\DB;
 
 class DashboardBersihHarian
 {
@@ -20,44 +22,29 @@ class DashboardBersihHarian
 
     public function build()
     {
-        $start_date = Carbon::now()->subDay(7);
-        $end_date = Carbon::now();
-        $range = CarbonPeriod::create($start_date, $end_date)->toArray();
-        $bersih = [];
-        $kotor = [];
-        $date = [];
-
+        $ruangan = $total = [];
         $rs_id = auth()->user()->rs_id;
-        if ($rs_id)
-        {
-            $data_bersih = Bersih::where(Bersih::field_rs_id(), auth()->user()->rs_id)
-                ->where(Bersih::field_report(), '>=', $start_date->format('Y-m-d'))
-                ->where(Bersih::field_report(), '<=', $end_date->format('Y-m-d'))
-                ->where(Bersih::field_status(), TransactionType::BERSIH)
+        if ($rs_id) {
+
+            $data_bersih = DB::table('view_rekap_bersih')
+            ->select(['view_ruangan_nama', DB::raw('sum(view_qty) as total')])
+                ->where('view_rs_id', $rs_id)
+                ->where('view_tanggal', now()->format('Y-m-d'))
+                ->where('view_status', TransactionType::BERSIH)
+                ->groupBy('view_ruangan_id', 'view_rs_id')
+                ->orderBy('view_ruangan_nama')
                 ->get();
 
-            $data_kotor = Transaksi::where(Transaksi::field_rs_ori(), auth()->user()->rs_id)
-                ->whereDate(Transaksi::field_created_at(), '>=', $start_date->format('Y-m-d'))
-                ->whereDate(Transaksi::field_created_at(), '<=', $end_date->format('Y-m-d'))
-                ->where(Transaksi::field_status_transaction(), TransactionType::KOTOR)
-                ->get()->map(function($item){
-                    $item['tanggal'] = $item->transaksi_created_at->format('Y-m-d') ?? null;
-                    return $item;
-                });
+            $ruangan = $data_bersih->pluck('view_ruangan_nama')->toArray();
+            $data_total = $data_bersih->pluck('total')->toArray();
 
-                foreach($range as $dates){
-                    $date[] = $dates->format('m-d');
-                    $bersih[] = $data_bersih->where(Bersih::field_report(), $dates->format('Y-m-d'))->count();
-                    $kotor[] = $data_kotor->where('tanggal', $dates->format('Y-m-d'))->count();
-                }
+            $total = array_map('intval', $data_total);
         }
 
-
-        return $this->chart->barChart()
-            ->setTitle('Perbandingan Bersih dan Kotor 7 hari kebelakang')
-            ->setSubtitle('Bersih vs Kotor.')
-            ->addData('Bersih', $bersih)
-            ->addData('Kotor', $kotor)
-            ->setXAxis($date);
+        return $this->chart->donutChart()
+            ->setSubtitle('Tanggal '.Carbon::now()->format('d/m/Y'))
+            ->setLabels($ruangan)
+            ->addData($total)
+            ->setTitle('Sebaran Linen Bersih');
     }
 }

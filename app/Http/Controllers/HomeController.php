@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Alkhachatryan\LaravelWebConsole\LaravelWebConsole;
 use App\Charts\DashboardBersihHarian;
+use App\Charts\DashboardBersihVsKotor;
 use App\Charts\DashboardKotorHarian;
 use App\Dao\Enums\TransactionType;
 use App\Dao\Models\Bersih;
@@ -28,7 +29,7 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index(DashboardKotorHarian $sebaran, DashboardBersihHarian $perbandingan)
+    public function index(DashboardKotorHarian $dkotor, DashboardBersihHarian $dbersih, DashboardBersihVsKotor $dperbandingan)
     {
         if (auth()->check() && auth()->user()->active == false) {
             return redirect()->route('login');
@@ -66,8 +67,9 @@ class HomeController extends Controller
         }
 
         return view('pages.home.home', [
-            'sebaran' => $sebaran->build(),
-            'perbandingan' => $perbandingan->build(),
+            'dbersih' => $dbersih->build(),
+            'dkotor' => $dkotor->build(),
+            'dperbandingan' => $dperbandingan->build(),
             'kotor' => $kotor,
             'bersih' => $bersih,
             'reject' => $reject,

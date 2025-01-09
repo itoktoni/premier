@@ -21,23 +21,28 @@ class DashboardKotorHarian
     {
         $ruangan = $total = [];
         $rs_id = auth()->user()->rs_id;
+        $tanggal = now()->subDay(1)->format('Y-m-d');
+
         if ($rs_id) {
-            $data_detail = ViewDetailLinen::select([ViewDetailLinen::field_ruangan_name(), DB::raw('count(view_linen_rfid) as total')])->where(ViewDetailLinen::field_rs_id(), $rs_id)
-                ->where(ViewDetailLinen::field_status_process(), TransactionType::BERSIH)
-                ->groupBy(ViewDetailLinen::field_ruangan_name())
-                ->orderBy(ViewDetailLinen::field_ruangan_name())
+            $data_bersih = DB::table('view_rekap_kotor')
+            ->select(['view_ruangan_nama', DB::raw('sum(view_qty) as total')])
+                ->where('view_rs_id', $rs_id)
+                ->where('view_tanggal', $tanggal)
+                ->where('view_status', TransactionType::KOTOR)
+                ->groupBy('view_ruangan_id', 'view_rs_id')
+                ->orderBy('view_ruangan_nama')
                 ->get();
 
-            $ruangan = $data_detail->pluck('view_ruangan_nama')->toArray();
-            $total = $data_detail->pluck('total')->toArray();
+            $ruangan = $data_bersih->pluck('view_ruangan_nama')->toArray();
+            $data_total = $data_bersih->pluck('total')->toArray();
+
+            $total = array_map('intval', $data_total);
         }
 
         return $this->chart->donutChart()
-            ->setSubtitle('Tanggal '.Carbon::now()->format('d-M-Y'))
-            // ->setXAxis($ruangan)
-            // ->addData('Sebaran Linen per Ruangan', $total)
+            ->setSubtitle('Tanggal '.formatDate($tanggal))
             ->setLabels($ruangan)
             ->addData($total)
-            ->setTitle('Sebaran Linen di Rs. Premier Bintaro');
+            ->setTitle('Sebaran Linen Kotor');
     }
 }
