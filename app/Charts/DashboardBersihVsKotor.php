@@ -46,7 +46,7 @@ class DashboardBersihVsKotor
                 });
 
                 foreach($range as $dates){
-                    $date[] = $dates->format('m-d');
+                    $date[] = $dates->format('d/M');
                     $bersih[] = $data_bersih->where(Bersih::field_report(), $dates->format('Y-m-d'))->count();
                     $kotor[] = $data_kotor->where('tanggal', $dates->format('Y-m-d'))->count();
                 }
