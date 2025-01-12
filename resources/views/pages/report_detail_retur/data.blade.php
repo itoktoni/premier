@@ -40,8 +40,6 @@
 				<th>RUMAH SAKIT</th>
 				<th>RUANGAN</th>
 				<th>LOKASI SCAN RUMAH SAKIT</th>
-				<th>STATUS TRANSAKSI</th>
-				<th>STATUS LINEN</th>
 				<th>CUCI/RENTAL</th>
 				<th>JUMLAH PEMAKAIAN LINEN</th>
 				<th>JUMLAH RETUR</th>
@@ -60,8 +58,6 @@
 				<td>{{ $table->rs_ori_nama }}</td>
 				<td>{{ $table->ruangan_nama }}</td>
 				<td>{{ $table->rs_scan_nama }}</td>
-				<td>{{ $table->field_status_transaction_name }}</td>
-				<td>{{ empty($table->view_status_proses) ? 'Belum Register' : ProcessType::getDescription($table->view_status_proses) }}</td>
 				<td>{{ empty($table->view_status_cuci) ? '' : CuciType::getDescription($table->view_status_cuci) }}</td>
 				<td>{{ $table->view_transaksi_bersih_total ?? 0 }}</td>
 				<td>{{ $table->view_transaksi_retur_total ?? 0 }}</td>
