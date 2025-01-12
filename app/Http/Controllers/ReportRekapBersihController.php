@@ -86,7 +86,7 @@ class ReportRekapBersihController extends MinimalController
 
         $rs = Rs::find(request()->get(Rs::field_primary()));
         $linen = $bersih->sortBy(ViewDetailLinen::field_name())->pluck(ViewDetailLinen::field_name(), ViewDetailLinen::field_id());
-        $location = $bersih->pluck(ViewDetailLinen::field_ruangan_name(), ViewDetailLinen::field_ruangan_id());
+        $location = $bersih->sortBy(ViewDetailLinen::field_ruangan_name())->pluck(ViewDetailLinen::field_ruangan_name(), ViewDetailLinen::field_ruangan_id());
 
         return moduleView(modulePathPrint(), $this->share([
             'data' => $this->data,
