@@ -43,11 +43,11 @@ class ReportSummaryPengirimanRewashController extends MinimalController
         ]);
 
         if ($start_date = $request->start_delivery) {
-            $query = $query->where(Transaksi::field_report(), '>=', $start_date);
+            $query = $query->where(Bersih::field_report(), '>=', $start_date);
         }
 
         if ($end_date = $request->end_delivery) {
-            $query = $query->where(Transaksi::field_report(), '<=', $end_date);
+            $query = $query->where(Bersih::field_report(), '<=', $end_date);
         }
 
         $query = $query->get();
