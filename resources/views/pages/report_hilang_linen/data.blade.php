@@ -54,7 +54,7 @@
 			<tr>
 				<td>{{ $loop->iteration }}</td>
 				<td>{{ $table->field_primary }}</td>
-				<td>{{ $table->field_name }}</td>
+				<td>{{ $table->jenis_nama }}</td>
 				<td>{{ $table->field_rs_ori_name }}</td>
 				<td>{{ $table->field_ruangan_name }}</td>
 				<td class="text-right">{{ $table->view_transaksi_bersih_total ?? 0 }}</td>
