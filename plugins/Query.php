@@ -200,13 +200,29 @@ class Query
             ->where(Opname::field_start(), '>=', now()->addMonth(-6))
             ->get()->mapWithKeys(function ($item) {
                 $rs = $item->has_rs->field_name ?? 'RS';
+                $rs_id = $item->opname_id_rs ?? false;
 
-                return [
-                    $item->opname_id => $item->opname_id.' | '.
-                    $rs.' = '.
-                    $item->field_start.'-'.
-                    $item->field_end,
-                ];
+                if(empty(auth()->user()->rs_id))
+                {
+                    return [
+                        $item->opname_id => $item->opname_id.' | '.
+                        $rs.' = '.
+                        $item->field_start.'-'.
+                        $item->field_end,
+                    ];
+                }
+
+                if(auth()->user()->rs_id == $rs_id)
+                {
+                    return [
+                        $item->opname_id => $item->opname_id.' | '.
+                        $rs.' = '.
+                        $item->field_start.'-'.
+                        $item->field_end,
+                    ];
+                }
+
+                return [];
             });
 
         return $opname;
