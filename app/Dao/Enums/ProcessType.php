@@ -22,6 +22,8 @@ class ProcessType extends Enum implements LocalizedEnum
 
     const PACKING = 'PACKING';
 
+    const BERSIH = 'BERSIH';
+
     public static function getDescription($value): string
     {
         if ($value === self::QC) {
