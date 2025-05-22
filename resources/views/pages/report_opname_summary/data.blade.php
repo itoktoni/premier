@@ -44,7 +44,7 @@
                 <th width="1">No. </th>
                 <th>TANGGAL </th>
                 <th>REGISTER</th>
-                <th>TEMBAK SO</th>
+                <th>SCAN LINEN SAAT SO</th>
                 <th>RETUR</th>
                 <th>REWASH</th>
                 <th>PENDING</th>

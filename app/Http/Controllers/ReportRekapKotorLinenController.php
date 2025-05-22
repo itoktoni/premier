@@ -13,10 +13,12 @@ use App\Dao\Models\ViewTransaksi;
 use App\Dao\Repositories\TransaksiRepository;
 use App\Http\Requests\GeneralRequest;
 use App\Http\Requests\RekapReportRequest;
+use App\Http\Requests\ReportWeekRequest;
 use Carbon\CarbonPeriod;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
+use Plugins\Query;
 
 class ReportRekapKotorLinenController extends MinimalController
 {
@@ -29,7 +31,7 @@ class ReportRekapKotorLinenController extends MinimalController
 
     protected function beforeForm()
     {
-        $rs = Rs::getOptions();
+        $rs = Query::getRs();
         $ruangan = Ruangan::getOptions();
         $kategori = Kategori::getOptions();
         $jenis = JenisLinen::getOptions();
@@ -64,7 +66,7 @@ class ReportRekapKotorLinenController extends MinimalController
         return $query->get();
     }
 
-    public function getPrint(Request $request)
+    public function getPrint(ReportWeekRequest $request)
     {
         set_time_limit(0);
         ini_set('memory_limit', '512M');

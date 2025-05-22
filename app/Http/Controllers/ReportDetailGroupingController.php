@@ -8,6 +8,7 @@ use App\Dao\Models\Transaksi;
 use App\Dao\Models\User;
 use App\Dao\Repositories\TransaksiRepository;
 use App\Http\Requests\TransactionReportRequest;
+use Plugins\Query;
 
 class ReportDetailGroupingController extends MinimalController
 {
@@ -20,7 +21,7 @@ class ReportDetailGroupingController extends MinimalController
 
     protected function beforeForm()
     {
-        $rs = Rs::getOptions();
+        $rs = Query::getRs();
         $user = User::getOptions();
 
         self::$share = [
