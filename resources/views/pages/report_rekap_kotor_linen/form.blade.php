@@ -8,9 +8,9 @@
 
             <input type="hidden" name="report_name" value="Laporan Data Linen">
 
-            <x-form-select col="4" class="search" name="rs_id" label="Rumah Sakit" :options="$rs" />
-            <x-form-select col="4" class="search" name="ruangan_id" label="Ruangan" :options="$ruangan" />
-            <x-form-select col="4" class="search" name="linen_id" label="Jenis Linen" :options="$jenis" />
+            <x-form-select col="4" class="search" name="view_rs_id" label="Rumah Sakit" :options="$rs" />
+            <x-form-select col="4" class="search" name="view_ruangan_id" label="Ruangan" :options="$ruangan" />
+            <x-form-select col="4" class="search" name="view_linen_id" label="Jenis Linen" :options="$jenis" />
 
             <x-form-input col="6" type="date" label="Tanggal Awal" name="start_rekap" />
             <x-form-input col="6" type="date" label="Tanggal Akhir" name="end_rekap" />
