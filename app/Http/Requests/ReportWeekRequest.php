@@ -5,6 +5,7 @@ namespace App\Http\Requests;
 use App\Dao\Traits\ValidationTrait;
 use Carbon\Carbon;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\ValidationException;
 
 class ReportWeekRequest extends FormRequest
 {
@@ -27,8 +28,10 @@ class ReportWeekRequest extends FormRequest
 
         $validator->after(function ($validator) use ($diff) {
 
-            if($diff > 7){
+            if($diff > 3){
 
+                return throw new \ErrorException('Ada Masalah di Server !');
+                return app()->abort(500, 'Ada Masalah di Server !');
                 $validator->errors()->add('end_rekap', 'Penarikan report tidak boleh melebihi 7 hari !');
             }
 

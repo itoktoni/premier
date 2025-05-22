@@ -20,6 +20,8 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Plugins\Query;
 
+use function PHPUnit\Framework\throwException;
+
 class ReportRekapKotorLinenController extends MinimalController
 {
     public $data;
