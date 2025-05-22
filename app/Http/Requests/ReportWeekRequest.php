@@ -28,7 +28,7 @@ class ReportWeekRequest extends FormRequest
 
         $validator->after(function ($validator) use ($diff) {
 
-            if($diff > 3){
+            if($diff > 7){
 
                 $validator->errors()->add('end_rekap', 'Penarikan report tidak boleh melebihi 7 hari !');
             }
