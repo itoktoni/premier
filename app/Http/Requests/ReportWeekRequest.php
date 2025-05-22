@@ -30,8 +30,6 @@ class ReportWeekRequest extends FormRequest
 
             if($diff > 3){
 
-                return throw new \ErrorException('Ada Masalah di Server !');
-                return app()->abort(500, 'Ada Masalah di Server !');
                 $validator->errors()->add('end_rekap', 'Penarikan report tidak boleh melebihi 7 hari !');
             }
 
