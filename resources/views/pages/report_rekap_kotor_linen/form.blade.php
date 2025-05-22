@@ -3,7 +3,7 @@
         <x-form :model="$model" :spa="false" target="_blank"  method="GET" action="{{ moduleRoute('getPrint') }}" :upload="true">
 
             <x-action form="print">
-                <x-button type="submit" class="btn btn-success" label="Export" name="action" value="export"/>
+                <x-button type="submit" class="btn btn-success" label="Export" name="action" value="excel"/>
             </x-action>
 
             <input type="hidden" name="report_name" value="Laporan Data Linen">
