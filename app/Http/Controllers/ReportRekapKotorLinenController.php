@@ -33,16 +33,16 @@ class ReportRekapKotorLinenController extends MinimalController
 
     protected function beforeForm()
     {
-        $rs = Query::getRs();
-        $ruangan = Ruangan::getOptions();
+        // $rs = Query::getRs();
+        // $ruangan = Ruangan::getOptions();
         $kategori = Kategori::getOptions();
-        $jenis = JenisLinen::getOptions();
+        // $jenis = JenisLinen::getOptions();
 
         self::$share = [
-            'jenis' => $jenis,
+            // 'jenis' => $jenis,
             'kategori' => $kategori,
-            'ruangan' => $ruangan,
-            'rs' => $rs,
+            // 'ruangan' => $ruangan,
+            // 'rs' => $rs,
         ];
     }
 
