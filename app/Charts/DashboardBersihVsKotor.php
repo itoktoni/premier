@@ -20,8 +20,12 @@ class DashboardBersihVsKotor
 
     public function build()
     {
+        $start_date_kotor = Carbon::now()->subDay(8);
+        $end_date_kotor = Carbon::now()->subDay(1);
+
         $start_date = Carbon::now()->subDay(7);
         $end_date = Carbon::now();
+
         $range = CarbonPeriod::create($start_date, $end_date)->toArray();
         $bersih = [];
         $kotor = [];
@@ -37,8 +41,8 @@ class DashboardBersihVsKotor
                 ->get();
 
             $data_kotor = Transaksi::where(Transaksi::field_rs_ori(), auth()->user()->rs_id)
-                ->whereDate(Transaksi::field_created_at(), '>=', $start_date->format('Y-m-d'))
-                ->whereDate(Transaksi::field_created_at(), '<=', $end_date->format('Y-m-d'))
+                ->whereDate(Transaksi::field_created_at(), '>=', $start_date_kotor->format('Y-m-d'))
+                ->whereDate(Transaksi::field_created_at(), '<=', $end_date_kotor->format('Y-m-d'))
                 ->where(Transaksi::field_status_transaction(), TransactionType::KOTOR)
                 ->get()->map(function($item){
                     $item['tanggal'] = $item->transaksi_created_at->format('Y-m-d') ?? null;
@@ -48,7 +52,7 @@ class DashboardBersihVsKotor
                 foreach($range as $dates){
                     $date[] = $dates->format('d M');
                     $bersih[] = $data_bersih->where(Bersih::field_report(), $dates->format('Y-m-d'))->count();
-                    $kotor[] = $data_kotor->where('tanggal', $dates->format('Y-m-d'))->count();
+                    $kotor[] = $data_kotor->where('tanggal', $dates->subDay(1)->format('Y-m-d'))->count();
                 }
         }
 
