@@ -30,7 +30,7 @@ class ReportOpnameHilangController extends MinimalController
     private function getQuery($opname_id)
     {
         $query = self::$repository->getOpnameByID($opname_id)
-            ->where(OpnameDetail::field_status_hilang(), HilangType::HILANG)
+            ->where(OpnameDetail::field_status_hilang(), HilangType::NORMAL)
             ->where(OpnameDetail::field_ketemu(), BooleanType::NO);
 
         return $query;

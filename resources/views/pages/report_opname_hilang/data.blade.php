@@ -35,7 +35,7 @@
 			<tr>
 				<th width="1">No. </th>
 				<th>LINEN </th>
-				<th>RUANGAN </th>
+				<th>RUANGAN</th>
 				<th>NO. RFID</th>
 				<th>TANGGAL REGISTER</th>
 				<th>STATUS TERAKHIR</th>
@@ -51,7 +51,7 @@
 			<tr>
 				<td>{{ $loop->iteration }}</td>
 				<td>{{ $table->view_linen_nama ?? '' }}</td>
-				<td>{{ $table->view_ruangan_nama ?? '' }}</td>
+				<td>{{ $table->view_ruangan_nama }}</td>
 				<td>{{ $table->view_linen_rfid }}</td>
 				<td>{{ formatDate($table->view_tanggal_create) }}</td>
 				<td>{{ $table->opname_detail_transaksi ? TransactionType::getDescription($table->opname_detail_transaksi) : 'Belum Register' }}</td>
