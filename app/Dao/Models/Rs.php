@@ -108,7 +108,7 @@ class Rs extends Model
                 $extension = $file_logo->extension();
                 $name = $model->field_primary.'.'.$extension;
 
-                $file_logo->storeAs('logo', $name);
+                $file_logo->storeAs('public/logo', $name);
                 $model->{Rs::field_logo()} = $name;
             }
         });
