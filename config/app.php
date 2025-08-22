@@ -14,6 +14,7 @@ use App\Dao\Enums\RoleType;
 use App\Dao\Enums\TransactionType;
 use App\Dao\Enums\UserLevel;
 use App\Dao\Enums\YesNoType;
+use App\Dao\Models\Rs;
 use App\Dao\Models\Transaksi;
 use App\Providers\CacheableAuthUserServiceProvider;
 use Coderello\SharedData\Facades\SharedData;
@@ -279,6 +280,7 @@ return [
         'Query' => Query::class,
         'Str' => Str::class,
         'Transaksi' => Transaksi::class,
+        'Rs' => Rs::class,
         'EnvEditor' => GeoSot\EnvEditor\Facades\EnvEditor::class,
     ],
 
