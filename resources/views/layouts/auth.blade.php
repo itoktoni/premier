@@ -7,7 +7,6 @@
         <title>{{ env('APP_NAME') }} - {{ env('APP_DESCRIPTION') }}</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <!-- App favicon -->
-        <link rel="shortcut icon" href="assets/images/favicon.ico">
 
         <!-- preloader css -->
         <link rel="stylesheet" href="assets/css/preloader.min.css" type="text/css" />
