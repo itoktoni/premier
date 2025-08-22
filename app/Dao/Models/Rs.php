@@ -34,6 +34,7 @@ class Rs extends Model
         'rs_aktif',
         'rs_code',
         'rs_status',
+        'rs_logo',
     ];
 
     public $sortable = [
@@ -96,5 +97,22 @@ class Rs extends Model
     public function has_rfid()
     {
         return $this->hasMany(Detail::class, Detail::field_rs_id(), $this->field_primary());
+    }
+
+    public static function boot()
+    {
+        parent::saving(function ($model) {
+
+            if($logo = request()->file('logo')) {
+                $file_logo = $logo;
+                $extension = $file_logo->extension();
+                $name = $model->field_primary.'.'.$extension;
+
+                $file_logo->storeAs('logo', $name);
+                $model->{Rs::field_logo()} = $name;
+            }
+        });
+
+        parent::boot();
     }
 }

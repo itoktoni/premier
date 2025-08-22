@@ -1,6 +1,6 @@
 <x-layout>
     <x-card>
-        <x-form :model="$model">
+        <x-form :model="$model" :upload="true">
             <x-action form="form">
                 @if($model)
                 <x-button :module="'getJenis'" :key="$model->field_primary" color="success" label="Update Jenis" />
@@ -12,7 +12,11 @@
             <x-form-input col="6" name="rs_code" />
             <x-form-input col="6" name="rs_nama" />
             <x-form-select col="6" name="rs_status" :options="$status" />
-            <x-form-textarea col="6 form-group" name="rs_alamat" />
+            <x-form-upload col="3" name="logo" />
+             <div class="col-md-3">
+                <img class="img-thumbnail img-fluid" src="{{ url('storage/logo/'.$model->field_logo) ?? url('noimage.jpeg') }}" alt="logo">
+            </div>
+            <x-form-textarea col="12 form-group" name="rs_alamat" />
 
             @level(UserLevel::Finance)
             <x-form-input type="number" col="6" name="rs_harga_cuci" />

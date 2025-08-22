@@ -49,6 +49,16 @@ trait RsEntity
         return $this->{$this->field_alamat()};
     }
 
+    public static function field_logo()
+    {
+        return 'rs_logo';
+    }
+
+    public function getFieldLogoAttribute()
+    {
+        return $this->{$this->field_logo()};
+    }
+
     public static function field_harga_cuci()
     {
         return 'rs_harga_cuci';
