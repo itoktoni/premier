@@ -287,3 +287,18 @@ function setString($value)
 {
     return '"'.$value.'"';
 }
+
+function getLogoUrl()
+{
+    $logo = Rs::find(auth()->user()->rs_id)->field_logo ?? null;
+
+    if ($logo) {
+        return url('storage/logo/'.$logo);
+    }
+
+    if (env('APP_LOGO')) {
+        return url('storage/'.env('APP_LOGO'));
+    }
+
+    return url('assets/media/image/logo.png');
+}

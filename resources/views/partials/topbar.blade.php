@@ -9,8 +9,6 @@
                     </span>
                     <span class="logo-lg"> <img class="mt-1" src="{{ env('APP_LOGO') ? url(env('APP_LOGO')) : url('default.png') }}" alt="" height="55" /></span>
                 </a>
-
-
             </div>
 
             <button type="button" class="btn btn-sm px-3 font-size-16 header-item d-lg-none" id="vertical-menu-btn">
