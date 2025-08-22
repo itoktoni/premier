@@ -14,7 +14,7 @@
             <x-form-select col="6" name="rs_status" :options="$status" />
             <x-form-upload col="3" name="logo" />
              <div class="col-md-3">
-                <img class="img-thumbnail img-fluid" src="{{ url('storage/logo/'.$model->field_logo) ?? url('noimage.jpeg') }}" alt="logo">
+                <img class="img-thumbnail img-fluid" src="{{ $model->field_logo ? url('storage/logo/'.$model->field_logo) : url('noimage.jpeg') }}" alt="logo">
             </div>
             <x-form-textarea col="12 form-group" name="rs_alamat" />
 
