@@ -13,4 +13,4 @@ if(!empty($rs_logo)) {
 }
 
 @endphp
-<img style="position: absolute;left:40%;top:5px;" src="{{ $path }}" alt="logo">
+<img style="position: absolute;left:40%;top:-10px;" src="{{ $path }}" alt="logo">
