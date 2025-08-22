@@ -302,3 +302,13 @@ function getLogoUrl()
 
     return url('assets/media/image/logo.png');
 }
+
+function getTitle()
+{
+    $title = Rs::find(auth()->user()->rs_id)->field_name ?? null;
+    if ($title) {
+        return $title;
+    }
+
+    return env('APP_NAME') .' - '. env('APP_DESCRIPTION');
+}
