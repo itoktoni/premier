@@ -291,7 +291,6 @@ function setString($value)
 function getLogoUrl()
 {
     $logo = Rs::find(auth()->user()->rs_id)->field_logo ?? null;
-
     if ($logo) {
         return url('storage/logo/'.$logo);
     }
