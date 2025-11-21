@@ -44,14 +44,11 @@
                 <th width="1">No. </th>
                 <th>TANGGAL </th>
                 <th>REGISTER</th>
-                <th>SCAN LINEN SAAT SO</th>
-                <th>RETUR</th>
-                <th>REWASH</th>
-                <th>PENDING</th>
-                <th>HILANG</th>
-                <th>BELUM REGISTER</th>
+                <th>SCAN LINEN <br>SAAT SO</th>
+                <th>BELUM <br>TERBACA <br>SAAT SO DI RS</th>
+                <th>LINEN MASIH <br>DALAM PROSES <br>DI LAUNDRY</th>
                 <th>TOTAL OPNAME</th>
-                <th>SELISIH</th>
+                <th>LINEN BERCHIP <br>YANG TIDAK <br>TERINDENTIFIKASI</th>
             </tr>
         </thead>
         <tbody>
@@ -60,7 +57,7 @@
 			if(!empty($data)){
 				$map = $data->mapToGroups(function($item){
 					return [formatDate($item->opname_detail_waktu) => $item];
-				})->sortDesc();
+				})->sortKeys();
 			}
 
             $grand_total = 0;
@@ -72,24 +69,16 @@
                         ->where('opname_detail_transaksi', '!=', 0)
                         ->count();
 
-            $pending = $table->where('opname_detail_hilang', HilangType::PENDING)
-                        ->where('opname_detail_scan_rs', 0)
-                        ->count();
-
-			$hilang = $table->where('opname_detail_hilang', HilangType::HILANG)
-                        ->where('opname_detail_scan_rs', 0)
-                        ->count();
-
-			$retur = $table->where('opname_detail_transaksi', TransactionType::REJECT)
-                        ->where('opname_detail_hilang', [HilangType::NORMAL])
-                        ->count();
-
-			$rewash = $table->where('opname_detail_transaksi', TransactionType::REWASH)
-                        ->where('opname_detail_hilang', [HilangType::NORMAL])
-                        ->count();
-
 			$not_register = $table->where('opname_detail_transaksi', BooleanType::NO)->count();
-			$total = $tembak_so + $pending + $hilang + $retur + $rewash;
+            $hilang_rs = $table->where('opname_detail_transaksi', TransactionType::BERSIH)
+                        ->where('opname_detail_ketemu', 0)
+                        ->count();
+
+            $hilang_warehouse = $table->where('opname_detail_transaksi', '!=', TransactionType::BERSIH)
+                        ->where('opname_detail_ketemu', 0)
+                        ->count();
+
+			$total = $tembak_so + $hilang_rs + $hilang_warehouse;
             $grand_total = $grand_total + $total;
 			@endphp
             <tr>
@@ -97,13 +86,10 @@
                 <td>{{ $key ?? '' }}</td>
                 <td>{{ $register }}</td>
                 <td>{{ $tembak_so }}</td>
-                <td>{{ $retur }}</td>
-                <td>{{ $rewash }}</td>
-                <td>{{ $pending }}</td>
-                <td>{{ $hilang }}</td>
-                <td>{{ $not_register }}</td>
+                <td>{{ $hilang_rs }}</td>
+                <td>{{ $hilang_warehouse }}</td>
                 <td>{{ $total }}</td>
-                <td></td>
+                <td>{{ $not_register }}</td>
             </tr>
 
             @empty
@@ -117,34 +103,24 @@
                     ->where('opname_detail_transaksi', '!=', 0)
                     ->count();
 
-				$sub_pending = $table->where('opname_detail_hilang', HilangType::PENDING)
-                    ->where('opname_detail_scan_rs', 0)
-                    ->count();
-
-				$sub_hilang = $table->where('opname_detail_hilang', HilangType::HILANG)
-                    ->where('opname_detail_scan_rs', 0)
-                    ->count();
-
-				$sub_retur = $table->where('opname_detail_transaksi', TransactionType::REJECT)
-                        ->where('opname_detail_hilang', [HilangType::NORMAL])
-                    ->count();
-
-				$sub_rewash =  $table->where('opname_detail_transaksi', TransactionType::REWASH)
-                        ->where('opname_detail_hilang', [HilangType::NORMAL])
-                    ->count();
-
 				$sub_not_register = $data->where('opname_detail_transaksi', BooleanType::NO)->count();
 				$sub_total = $data->count();
+
+                $sub_hilang_rs = $data->where('opname_detail_transaksi', TransactionType::BERSIH)
+                        ->where('opname_detail_ketemu', 0)
+                        ->count();
+
+                $sub_hilang_warehouse = $data->where('opname_detail_transaksi','!=', TransactionType::BERSIH)
+                            ->where('opname_detail_ketemu', 0)
+                            ->count();
+
 				@endphp
 				<td>{{ $register }}</td>
 				<td>{{ $sub_tembak_so }}</td>
-                <td>{{ $sub_retur }}</td>
-				<td>{{ $sub_rewash }}</td>
-				<td>{{ $sub_pending }}</td>
-				<td>{{ $sub_hilang }}</td>
-				<td>{{ $sub_not_register }}</td>
+				<td>{{ $sub_hilang_rs }}</td>
+				<td>{{ $sub_hilang_warehouse }}</td>
 				<td>{{ $grand_total }}</td>
-				<td>{{ $register - $grand_total }}</td>
+				<td>{{ $sub_not_register }}</td>
 			</tr>
 
         </tbody>
