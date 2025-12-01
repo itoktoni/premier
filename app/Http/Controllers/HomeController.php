@@ -6,8 +6,10 @@ use Alkhachatryan\LaravelWebConsole\LaravelWebConsole;
 use App\Charts\DashboardBersihHarian;
 use App\Charts\DashboardBersihVsKotor;
 use App\Charts\DashboardKotorHarian;
+use App\Dao\Enums\HilangType;
 use App\Dao\Enums\TransactionType;
 use App\Dao\Models\Bersih;
+use App\Dao\Models\Outstanding;
 use App\Dao\Models\Transaksi;
 
 class HomeController extends Controller
@@ -64,6 +66,16 @@ class HomeController extends Controller
                 ->whereDate(Transaksi::field_created_at(), $date)
                 ->where(Transaksi::field_status_transaction(), TransactionType::REWASH)
                 ->count();
+
+            $pending = Outstanding::where(Outstanding::field_status_hilang(), HilangType::PENDING)
+                ->where(Outstanding::field_rs_scan(), $rs_id)
+                ->joinRelationship('has_rfid')
+                ->count();
+
+            $hilang = Outstanding::where(Outstanding::field_status_hilang(), HilangType::HILANG)
+                ->where(Outstanding::field_rs_scan(), $rs_id)
+                ->joinRelationship('has_rfid')
+                ->count();
         }
 
         return view('pages.home.home', [
@@ -73,7 +85,9 @@ class HomeController extends Controller
             'kotor' => $kotor,
             'bersih' => $bersih,
             'reject' => $reject,
-            'rewash' => $rewash
+            'pending' => $pending,
+            'hilang' => $hilang,
+            'rewash' => $rewash,
         ]);
     }
 

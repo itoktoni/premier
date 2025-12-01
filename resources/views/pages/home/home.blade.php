@@ -1,15 +1,15 @@
 <x-layout>
     <div class="row">
 
-        <div class="col-xl-3 col-md-6">
+        <div class="col-xl-2 col-md-6">
             <!-- card -->
             <div class="card card-h-50">
                 <!-- card body -->
                 <div class="card-body">
                     <div class="row align-items-center">
                         <div class="col-12">
-                            <span class="text-muted mb-3 lh-1 d-block text-truncate">Bersih hari ini</span>
-                            <h4 class="mb-3">
+                            <span class="text-muted mb-2 d-block text-truncate">Bersih</span>
+                            <h4 class="mb-1">
                                 <span class="counter-value" data-target="{{ $bersih }}"></span>
                             </h4>
                         </div>
@@ -18,15 +18,15 @@
             </div><!-- end card -->
         </div><!-- end col -->
 
-        <div class="col-xl-3 col-md-6">
+        <div class="col-xl-2 col-md-6">
             <!-- card -->
             <div class="card card-h-50">
                 <!-- card body -->
                 <div class="card-body">
                     <div class="row align-items-center">
                         <div class="col-6">
-                            <span class="text-muted mb-3 lh-1 d-block text-truncate">Kotor hari ini</span>
-                            <h4 class="mb-3">
+                            <span class="text-muted mb-2 d-block text-truncate">Kotor</span>
+                            <h4 class="mb-1">
                                 <span class="counter-value" data-target="{{ $kotor }}"></span>
                             </h4>
                         </div>
@@ -35,15 +35,15 @@
             </div><!-- end card -->
         </div><!-- end col-->
 
-        <div class="col-xl-3 col-md-6">
+        <div class="col-xl-2 col-md-6">
             <!-- card -->
             <div class="card card-h-50">
                 <!-- card body -->
                 <div class="card-body">
                     <div class="row align-items-center">
                         <div class="col-6">
-                            <span class="text-muted mb-3 lh-1 d-block text-truncate">Reject hari ini</span>
-                            <h4 class="mb-3">
+                            <span class="text-muted mb-2 d-block text-truncate">Reject</span>
+                            <h4 class="mb-1">
                                 <span class="counter-value" data-target="{{ $reject }}"></span>
                             </h4>
                         </div>
@@ -52,16 +52,50 @@
             </div><!-- end card -->
         </div><!-- end col -->
 
-        <div class="col-xl-3 col-md-6">
+        <div class="col-xl-2 col-md-6">
             <!-- card -->
             <div class="card card-h-50">
                 <!-- card body -->
                 <div class="card-body">
                     <div class="row align-items-center">
                         <div class="col-6">
-                            <span class="text-muted mb-3 lh-1 d-block text-truncate">Rewash hari ini</span>
-                            <h4 class="mb-3">
+                            <span class="text-muted mb-2 d-block text-truncate">Rewash</span>
+                            <h4 class="mb-1">
                                 <span class="counter-value" data-target="{{ $rewash }}"></span>
+                            </h4>
+                        </div>
+                    </div>
+                </div><!-- end card body -->
+            </div><!-- end card -->
+        </div><!-- end col -->
+
+        <div class="col-xl-2 col-md-6">
+            <!-- card -->
+            <div class="card card-h-50">
+                <!-- card body -->
+                <div class="card-body">
+                    <div class="row align-items-center">
+                        <div class="col-6">
+                            <span class="text-muted mb-2 d-block text-truncate">Pending</span>
+                            <h4 class="mb-1">
+                                <span class="counter-value" data-target="{{ $pending }}"></span>
+                            </h4>
+                        </div>
+                    </div>
+                </div><!-- end card body -->
+            </div><!-- end card -->
+        </div><!-- end col -->
+
+        <div class="col-xl-2 col-md-6">
+            <!-- card -->
+            <div class="card card-h-50">
+                <!-- card body -->
+                <div class="card-body">
+                    <div class="row align-items-center">
+                        <div class="col-6">
+                            <span class="text-muted mb-2 d-block text-truncate">Hilang</span>
+                            <h4 class="mb-1">
+                                <span class="counter-value" data-target="{{ $hilang }}"></span>
                             </h4>
                         </div>
                     </div>

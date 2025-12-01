@@ -90,12 +90,12 @@ class Outstanding extends Model
 
     public function has_rfid()
     {
-        return $this->hasMany(Detail::class, Detail::field_rs_id(), $this->field_primary());
+        return $this->hasMany(Detail::class, Detail::field_primary(), $this->field_primary());
     }
 
     public function has_jenis()
     {
-        return $this->hasMany(JenisLinen::class, JenisLinen::field_rs_id(), $this->field_primary());
+        return $this->hasMany(JenisLinen::class, JenisLinen::field_primary(), $this->field_jenis_id());
     }
 
     public function has_view()
