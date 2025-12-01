@@ -42,7 +42,7 @@
                 <div class="card-body">
                     <div class="row align-items-center">
                         <div class="col-6">
-                            <span class="text-muted mb-3 lh-1 d-block text-truncate">Retur hari ini</span>
+                            <span class="text-muted mb-3 lh-1 d-block text-truncate">Reject hari ini</span>
                             <h4 class="mb-3">
                                 <span class="counter-value" data-target="{{ $reject }}"></span>
                             </h4>
