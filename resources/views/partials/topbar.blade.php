@@ -5,7 +5,7 @@
             <div class="navbar-brand-box">
                 <a href="{{ url('/') }}" class="logo">
                     <span class="logo-sm">
-                        <img src="{{ env('APP_LOGO') ? url(env('APP_LOGO')) : url('default.png') }}" alt="" height="55" />
+                        <img src="{{ getLogoUrl() }}" alt="" height="55" />
                     </span>
                     <span class="logo-lg"> <img class="mt-1" src="{{ getLogoUrl() }}" alt="" height="55" /></span>
                 </a>
