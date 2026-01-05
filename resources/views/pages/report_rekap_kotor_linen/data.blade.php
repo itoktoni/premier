@@ -68,33 +68,34 @@
 				@forelse ($linen as $jenis_id => $jenis_name)
 					<tr>
 						<td>{{ $jenis_name }}</td>
-							@foreach($tanggal as $tgl)
-							<td>
-								@php
-								$total_tanggal = $kotor
-								->where('view_tanggal', $tgl->format('Y-m-d'))
-								->where('view_ruangan_id', $loc_id)
-								->where('view_linen_id', $jenis_id)
-								;
+						@foreach($tanggal as $tgl)
+						@php
+						$total_tanggal = $kotor
+							->where('view_tanggal', $tgl->format('Y-m-d'))
+							->where('view_ruangan_id', $loc_id)
+							->where('view_linen_id', $jenis_id)
+							;
 
-								$max = $kotor->where('view_linen_id', $jenis_id)->max('view_qty');
-								$min = $kotor->where('view_linen_id', $jenis_id)->min('view_qty');
-								$average = $kotor->where('view_linen_id', $jenis_id)->avg('view_qty');
-								$stock = $register->where('view_linen_id', $jenis_id)->count();
+						$average = $kotor->where('view_linen_id', $jenis_id)->avg('view_qty') ?? 0;
+						$max = $kotor->where('view_linen_id', $jenis_id)->max('view_qty') ?? 0;
+						$min = $kotor->where('view_linen_id', $jenis_id)->min('view_qty') ?? 0;
+						$stock = $register->where('view_linen_id', $jenis_id)->count();
 
-								$drop_max = round($stock / $max, 2);
-								$drop_min = round($stock / $min, 2);
-								@endphp
+						$drop_max = (!empty($stock) && !empty($max)) ? round($stock / $max, 2) : 0;
+						$drop_min = (!empty($stock) && !empty($min)) ? round($stock / $min, 2) : 0;
 
-								{{ $total_tanggal->sum('view_qty') }}
-							</td>
-							@endforeach
-							<td>{{ $max }}</td>
-							<td>{{ $min }}</td>
-							<td>{{ round($average, 2) }}</td>
-							<td>{{ $stock }}</td>
-							<td>{{ $drop_max }}</td>
-							<td>{{ $drop_min }}</td>
+						@endphp
+
+						<td>
+							{{ $total_tanggal->sum('view_qty') }}
+						</td>
+						@endforeach
+						<td>{{ $max }}</td>
+						<td>{{ $min }}</td>
+						<td>{{ round($average, 2) }}</td>
+						<td>{{ $stock }}</td>
+						<td>{{ $drop_max }}</td>
+						<td>{{ $drop_min }}</td>
 					</tr>
 				@empty
 				@endforelse

@@ -14,14 +14,10 @@ use App\Dao\Models\ViewTransaksi;
 use App\Dao\Repositories\TransaksiRepository;
 use App\Http\Requests\GeneralRequest;
 use App\Http\Requests\RekapReportRequest;
-use App\Http\Requests\ReportWeekRequest;
 use Carbon\CarbonPeriod;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
-use Plugins\Query;
-
-use function PHPUnit\Framework\throwException;
 
 class ReportRekapKotorLinenController extends MinimalController
 {
@@ -34,7 +30,7 @@ class ReportRekapKotorLinenController extends MinimalController
 
     protected function beforeForm()
     {
-        $rs = Query::getRs();
+        $rs = Rs::getOptions();
         $ruangan = Ruangan::getOptions();
         $kategori = Kategori::getOptions();
         $jenis = JenisLinen::getOptions();
@@ -73,7 +69,7 @@ class ReportRekapKotorLinenController extends MinimalController
         return $query->get();
     }
 
-    public function getPrint(ReportWeekRequest $request)
+    public function getPrint(Request $request)
     {
         set_time_limit(0);
         ini_set('memory_limit', '512M');
@@ -85,15 +81,6 @@ class ReportRekapKotorLinenController extends MinimalController
 
         $rs = Rs::find(request()->get(ViewDetailLinen::field_rs_id()));
         $ruangan = Rs::find(request()->get(ViewDetailLinen::field_ruangan_id()));
-
-        $kotor = $this->getQueryKotor($request);
-        $linen = $kotor->sortBy(ViewDetailLinen::field_name())->pluck(ViewDetailLinen::field_name(), ViewDetailLinen::field_id());
-        $location = $kotor->sortBy(ViewDetailLinen::field_ruangan_name())->pluck(ViewDetailLinen::field_ruangan_name(), ViewDetailLinen::field_ruangan_id());
-
-        $tanggal = CarbonPeriod::create(request()->get('start_rekap'), request()->get('end_rekap'));
-
-        // for register
-
         $register = ViewConfigLinen::query()->where('view_rs_id', request()->get(ViewDetailLinen::field_rs_id()));
 
         if($linen = request()->get('view_linen_id'))
@@ -106,6 +93,16 @@ class ReportRekapKotorLinenController extends MinimalController
             $register = $register->where('view_ruangan_id', $ruangan);
         }
 
+        $register = $register->get();
+
+        $kotor = $this->getQueryKotor($request);
+
+        $linen = $register->sortBy(ViewDetailLinen::field_name())->pluck(ViewDetailLinen::field_name(), ViewDetailLinen::field_id());
+
+        $location = $register->sortBy(ViewDetailLinen::field_ruangan_name())->pluck(ViewDetailLinen::field_ruangan_name(), ViewDetailLinen::field_ruangan_id());
+
+        $tanggal = CarbonPeriod::create($request->start_rekap, $request->end_rekap);
+
         return moduleView(modulePathPrint(), $this->share([
             'data' => $this->data,
             'rs' => $rs,
@@ -114,7 +111,7 @@ class ReportRekapKotorLinenController extends MinimalController
             'tanggal' => $tanggal,
             'linen' => $linen,
             'kotor' => $kotor,
-            'register' => $register->get(),
+            'register' => $register,
         ]));
     }
 }
