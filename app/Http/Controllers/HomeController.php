@@ -11,6 +11,11 @@ use App\Dao\Enums\TransactionType;
 use App\Dao\Models\Bersih;
 use App\Dao\Models\Outstanding;
 use App\Dao\Models\Transaksi;
+use App\Dao\Models\ViewAvailableLinen;
+use App\Dao\Models\ViewConfigLinen;
+use App\Dao\Models\ViewDetailLinen;
+use App\Dao\Models\ViewOutstanding;
+use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
@@ -41,11 +46,29 @@ class HomeController extends Controller
         $kotor = 0;
         $reject = 0;
         $rewash = 0;
+        $register = 0;
+        $pending_kotor = 0;
+        $pending_reject = 0;
+        $pending_rewash = 0;
+        $available = 0;
+        $pending = 0;
+        $hilang = 0;
 
         $date = date('Y-m-d');
 
         $rs_id = auth()->user()->rs_id;
         if ($rs_id) {
+
+            $register = ViewDetailLinen::where('view_rs_id', $rs_id)->count();
+            $pending_kotor = DB::table('view_outstanding_hilang')->where('view_rs_ori_id', $rs_id)->where('outstanding_status_transaksi', TransactionType::KOTOR)
+                ->where('outstanding_status_hilang', '!=', HilangType::NORMAL)
+                ->count();
+            $pending_reject = DB::table('view_outstanding_hilang')->where('view_rs_ori_id', $rs_id)->where('outstanding_status_transaksi', TransactionType::REJECT)
+                ->where('outstanding_status_hilang', '!=', HilangType::NORMAL)
+                ->count();
+            $pending_rewash = DB::table('view_outstanding_hilang')->where('view_rs_ori_id', $rs_id)->where('outstanding_status_transaksi', TransactionType::REWASH)
+                ->where('outstanding_status_hilang', '!=', HilangType::NORMAL)
+                ->count();
 
             $bersih = Bersih::where(Bersih::field_rs_id(), $rs_id)
                 ->where(Bersih::field_report(), $date)
@@ -76,9 +99,12 @@ class HomeController extends Controller
                 ->where(Outstanding::field_rs_scan(), $rs_id)
                 ->joinRelationship('has_rfid')
                 ->count();
+
+            $available = $register - ($kotor + $reject + $rewash + $pending_kotor + $pending_reject + $pending_rewash);
         }
 
         return view('pages.home.home', [
+            'available' => $available,
             'dbersih' => $dbersih->build(),
             'dkotor' => $dkotor->build(),
             'dperbandingan' => $dperbandingan->build(),
@@ -88,6 +114,9 @@ class HomeController extends Controller
             'pending' => $pending,
             'hilang' => $hilang,
             'rewash' => $rewash,
+            'pending_kotor' => $pending_kotor,
+            'pending_reject' => $pending_reject,
+            'pending_rewash' => $pending_rewash,
         ]);
     }
 

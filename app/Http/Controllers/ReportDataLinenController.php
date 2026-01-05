@@ -44,7 +44,7 @@ class ReportDataLinenController extends MinimalController
 
     private function exportExcel($request)
     {
-        $writer = SimpleExcelWriter::streamDownload('data_linen.xlsx');
+        $writer = SimpleExcelWriter::streamDownload(moduleName().'.xlsx');
         self::$repository->getPrintDataMaster()->chunk(1000, function ($item) use ($writer) {
             foreach ($item as $key => $table) {
                 $writer->addRow([

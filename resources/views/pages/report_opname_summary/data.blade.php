@@ -43,12 +43,7 @@
             <tr>
                 <th width="1">No. </th>
                 <th>TANGGAL </th>
-                <th>REGISTER</th>
-                <th>SCAN LINEN <br>SAAT SO</th>
-                <th>BELUM <br>TERBACA <br>SAAT SO DI RS</th>
-                <th>LINEN MASIH <br>DALAM PROSES <br>DI LAUNDRY</th>
-                <th>TOTAL OPNAME</th>
-                <th>LINEN BERCHIP <br>YANG TIDAK <br>TERINDENTIFIKASI</th>
+                <th>SCAN LINEN SAAT SO</th>
             </tr>
         </thead>
         <tbody>
@@ -57,7 +52,7 @@
 			if(!empty($data)){
 				$map = $data->mapToGroups(function($item){
 					return [formatDate($item->opname_detail_waktu) => $item];
-				})->sortKeys();
+				});
 			}
 
             $grand_total = 0;
@@ -80,16 +75,12 @@
 
 			$total = $tembak_so + $hilang_rs + $hilang_warehouse;
             $grand_total = $grand_total + $total;
+
 			@endphp
             <tr>
                 <td>{{ $loop->iteration }}</td>
                 <td>{{ $key ?? '' }}</td>
-                <td>{{ $register }}</td>
                 <td>{{ $tembak_so }}</td>
-                <td>{{ $hilang_rs }}</td>
-                <td>{{ $hilang_warehouse }}</td>
-                <td>{{ $total }}</td>
-                <td>{{ $not_register }}</td>
             </tr>
 
             @empty
@@ -115,14 +106,34 @@
                             ->count();
 
 				@endphp
-				<td>{{ $register }}</td>
 				<td>{{ $sub_tembak_so }}</td>
-				<td>{{ $sub_hilang_rs }}</td>
-				<td>{{ $sub_hilang_warehouse }}</td>
-				<td>{{ $grand_total }}</td>
-				<td>{{ $sub_not_register }}</td>
 			</tr>
 
+        </tbody>
+    </table>
+
+    <br>
+
+    <table id="export" border="1" style="border-collapse: collapse !important; border-spacing: 0 !important;"
+        class="table table-bordered table-striped table-responsive-stack">
+
+        <thead>
+            <tr>
+                <th>Total Register</th>
+                <th>Total Scan Linen</th>
+                <th>Total Hilang Rs</th>
+                <th>Total Hilang Laundry</th>
+                <th>Total Summary</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{ $register }}</td>
+                <td>{{ $sub_tembak_so }}</td>
+                <td>{{ $sub_hilang_rs }}</td>
+                <td>{{ $sub_hilang_warehouse }}</td>
+                <td>{{ $grand_total }}</td>
+            </tr>
         </tbody>
     </table>
 </div>

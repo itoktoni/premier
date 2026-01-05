@@ -8,6 +8,7 @@ use App\Dao\Models\Kategori;
 use App\Dao\Models\Rs;
 use App\Dao\Models\Ruangan;
 use App\Dao\Models\User;
+use App\Dao\Models\ViewConfigLinen;
 use App\Dao\Models\ViewDetailLinen;
 use App\Dao\Models\ViewTransaksi;
 use App\Dao\Repositories\TransaksiRepository;
@@ -57,6 +58,10 @@ class ReportRekapKotorLinenController extends MinimalController
             $query = $query->where('view_ruangan_id', $ruangan_id);
         }
 
+        if ($jenis_id = $request->view_linen_id) {
+            $query = $query->where('view_linen_id', $jenis_id);
+        }
+
         if ($start_date = $request->start_rekap) {
             $query = $query->where('view_tanggal', '>=', $start_date);
         }
@@ -85,7 +90,21 @@ class ReportRekapKotorLinenController extends MinimalController
         $linen = $kotor->sortBy(ViewDetailLinen::field_name())->pluck(ViewDetailLinen::field_name(), ViewDetailLinen::field_id());
         $location = $kotor->sortBy(ViewDetailLinen::field_ruangan_name())->pluck(ViewDetailLinen::field_ruangan_name(), ViewDetailLinen::field_ruangan_id());
 
-        $tanggal = CarbonPeriod::create($request->start_rekap, $request->end_rekap);
+        $tanggal = CarbonPeriod::create(request()->get('start_rekap'), request()->get('end_rekap'));
+
+        // for register
+
+        $register = ViewConfigLinen::query()->where('view_rs_id', request()->get(ViewDetailLinen::field_rs_id()));
+
+        if($linen = request()->get('view_linen_id'))
+        {
+            $register = $register->where('view_linen_id', $linen);
+        }
+
+        if($ruangan = request()->get('view_ruangan_id'))
+        {
+            $register = $register->where('view_ruangan_id', $ruangan);
+        }
 
         return moduleView(modulePathPrint(), $this->share([
             'data' => $this->data,
@@ -95,6 +114,7 @@ class ReportRekapKotorLinenController extends MinimalController
             'tanggal' => $tanggal,
             'linen' => $linen,
             'kotor' => $kotor,
+            'register' => $register->get(),
         ]));
     }
 }

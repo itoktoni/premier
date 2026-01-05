@@ -49,8 +49,8 @@ class ReportRekapOpnameController extends MinimalController
         $opname = $opname->get();
 
         if ($rs) {
-            $location = $opname->pluck('ruangan_nama', 'ruangan_id')->unique();
-            $linen = $opname->pluck('jenis_nama', 'jenis_id')->unique();
+            $location = $opname->sortBy('ruangan_nama')->pluck('ruangan_nama', 'ruangan_id')->unique();
+            $linen = $opname->sortBy('jenis_nama')->pluck('jenis_nama', 'jenis_id')->unique();
         }
 
         return moduleView(modulePathPrint(), $this->share([

@@ -36,7 +36,7 @@ class ReportOpnameSummaryController extends MinimalController
     public function getPrint(Request $request)
     {
         set_time_limit(0);
-        $this->data = $this->getQuery($request->opname_id)->get();
+        $this->data = $this->getQuery($request->opname_id)->orderBy('opname_detail_waktu', 'ASC')->get();
 
         $opname = Opname::with(['has_rs'])->find(request()->get(Opname::field_primary()));
         // $register = Detail::where(Detail::field_rs_id(), $opname->field_rs_id)->count();

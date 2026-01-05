@@ -6,7 +6,7 @@
                 <x-button type="submit" class="btn btn-success" label="Export" name="action" value="export"/>
             </x-action>
 
-            <input type="hidden" name="report_name" value="Laporan Data Linen">
+            <input type="hidden" name="report_name" value="{{ moduleName() }}">
 
             <livewire:dropdownrs />
 

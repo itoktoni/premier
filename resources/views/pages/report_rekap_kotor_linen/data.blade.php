@@ -45,6 +45,12 @@
 				@foreach($tanggal as $tgl)
                 <th>{{ formatDate($tgl, 'd') }}</th>
                 @endforeach
+				<th>Max</th>
+				<th>Min</th>
+				<th>Rata rata kotor</th>
+				<th>Drop Stock</th>
+				<th>Par Max</th>
+				<th>Par Min</th>
             </tr>
         </thead>
 		<tbody>
@@ -66,15 +72,29 @@
 							<td>
 								@php
 								$total_tanggal = $kotor
-									->where('view_tanggal', $tgl->format('Y-m-d'))
-									->where('view_ruangan_id', $loc_id)
-									->where('view_linen_id', $jenis_id)
-									;
+								->where('view_tanggal', $tgl->format('Y-m-d'))
+								->where('view_ruangan_id', $loc_id)
+								->where('view_linen_id', $jenis_id)
+								;
+
+								$max = $kotor->where('view_linen_id', $jenis_id)->max('view_qty');
+								$min = $kotor->where('view_linen_id', $jenis_id)->min('view_qty');
+								$average = $kotor->where('view_linen_id', $jenis_id)->avg('view_qty');
+								$stock = $register->where('view_linen_id', $jenis_id)->count();
+
+								$drop_max = round($stock / $max, 2);
+								$drop_min = round($stock / $min, 2);
 								@endphp
 
 								{{ $total_tanggal->sum('view_qty') }}
 							</td>
 							@endforeach
+							<td>{{ $max }}</td>
+							<td>{{ $min }}</td>
+							<td>{{ round($average, 2) }}</td>
+							<td>{{ $stock }}</td>
+							<td>{{ $drop_max }}</td>
+							<td>{{ $drop_min }}</td>
 					</tr>
 				@empty
 				@endforelse

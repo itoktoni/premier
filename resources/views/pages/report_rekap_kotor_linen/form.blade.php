@@ -6,7 +6,7 @@
                 <x-button type="submit" class="btn btn-success" label="Export" name="action" value="excel"/>
             </x-action>
 
-            <input type="hidden" name="report_name" value="Laporan Data Linen">
+            <input type="hidden" name="report_name" value="{{ moduleName() }}">
 
             <x-form-select col="4" class="search" name="view_rs_id" label="Rumah Sakit" :options="$rs" />
             <x-form-select col="4" class="search" name="view_ruangan_id" label="Ruangan" :options="$ruangan" />
