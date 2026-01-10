@@ -18,6 +18,7 @@ use Carbon\CarbonPeriod;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
+use Plugins\Query;
 
 class ReportRekapKotorLinenController extends MinimalController
 {
@@ -30,7 +31,7 @@ class ReportRekapKotorLinenController extends MinimalController
 
     protected function beforeForm()
     {
-        $rs = Rs::getOptions();
+        $rs = Query::getRs();
         $ruangan = Ruangan::getOptions();
         $kategori = Kategori::getOptions();
         $jenis = JenisLinen::getOptions();
