@@ -3,7 +3,7 @@
 		<td></td>
 		<td colspan="6">
 			<h3>
-				<b>REPORT OPNAME DETAIL
+				<b>{{ strtoupper(moduleName()) }}
 				@if($filter = request()->get('status'))
 				 {{ Str::upper(FilterType::getDescription($filter)) }}
 				@endif

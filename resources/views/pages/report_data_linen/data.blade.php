@@ -3,7 +3,7 @@
 		<td></td>
 		<td colspan="6">
 			<h3>
-				<b>MASTER DATA LINEN</b>
+				<b>{{ strtoupper(moduleName()) }}</b>
 			</h3>
 		</td>
 		<td rowspan="3">

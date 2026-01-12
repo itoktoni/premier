@@ -3,7 +3,7 @@
 		<td></td>
 		<td colspan="10">
 			<h3>
-				<b>REPORT PAR-STOK</b>
+				<b>{{ strtoupper(moduleName()) }}</b>
 			</h3>
 		</td>
 		<td rowspan="3">
