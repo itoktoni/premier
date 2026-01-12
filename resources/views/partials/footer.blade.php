@@ -6,7 +6,7 @@
             </div>
             <div class="col-sm-6">
                 <div class="text-sm-end d-none d-sm-block">
-                    Design & Develop by <a href="https://alphara.co.id" class="text-decoration-underline">Aplhara</a>
+                    Design & Develop by <a href="https://nexeratech.co.id" class="text-decoration-underline">Nexera</a>
                 </div>
             </div>
         </div>
