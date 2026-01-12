@@ -53,8 +53,10 @@ class HomeController extends Controller
         $available = 0;
         $pending = 0;
         $hilang = 0;
+        $kemarin = 0;
 
         $date = date('Y-m-d');
+        $yesterday = now()->addDay(-1)->format('Y-m-d');
 
         $rs_id = auth()->user()->rs_id;
         if ($rs_id) {
@@ -77,6 +79,11 @@ class HomeController extends Controller
 
             $kotor = Transaksi::where(Transaksi::field_rs_ori(), $rs_id)
                 ->whereDate(Transaksi::field_created_at(), $date)
+                ->where(Transaksi::field_status_transaction(), TransactionType::KOTOR)
+                ->count();
+
+            $kemarin = Transaksi::where(Transaksi::field_rs_ori(), $rs_id)
+                ->whereDate(Transaksi::field_created_at(), $yesterday)
                 ->where(Transaksi::field_status_transaction(), TransactionType::KOTOR)
                 ->count();
 
@@ -113,6 +120,8 @@ class HomeController extends Controller
             'reject' => $reject,
             'pending' => $pending,
             'hilang' => $hilang,
+            'register' => $register,
+            'kemarin' => $kemarin,
             'rewash' => $rewash,
             'pending_kotor' => $pending_kotor,
             'pending_reject' => $pending_reject,

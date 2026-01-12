@@ -6,6 +6,7 @@ use App\Dao\Enums\CuciType;
 use App\Dao\Enums\HilangType;
 use App\Dao\Enums\ProcessType;
 use App\Dao\Enums\RegisterType;
+use App\Dao\Enums\TransactionType;
 use App\Dao\Models\JenisLinen;
 use App\Dao\Models\Rs;
 use App\Dao\Models\Ruangan;
@@ -34,6 +35,9 @@ class ReportPendingLinenController extends MinimalController
         $ruangan = Ruangan::getOptions();
         $cuci = CuciType::getOptions();
         $register = RegisterType::getOptions();
+        $transaction = TransactionType::getOptions([
+            TransactionType::KOTOR, TransactionType::REJECT, TransactionType::REWASH
+        ]);
 
         self::$share = [
             'rs' => $rs,
@@ -41,6 +45,7 @@ class ReportPendingLinenController extends MinimalController
             'jenis' => $jenis,
             'register' => $register,
             'cuci' => $cuci,
+            'transaction' => $transaction,
         ];
     }
 
@@ -55,6 +60,11 @@ class ReportPendingLinenController extends MinimalController
 
         if ($end_date = $request->end_pending) {
             $query = $query->whereDate(ViewOutstanding::field_pending_created_at(), '<=', $end_date);
+        }
+
+        if($type = $request->type)
+        {
+            $query = $query->where('outstanding.'.ViewOutstanding::field_status_transaction(), $type);
         }
 
         return $query->get();

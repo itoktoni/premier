@@ -56,9 +56,11 @@
                                                         @php
                                                         $active = request()->segment(4) == $link->field_url;
                                                         @endphp
-                                                      <li class="{{ $active ? 'mm-active' : '' }}">
-                                                          <a href="{{ route($link->field_action) }}">{{ $link->field_name }}</a>
-                                                      </li>
+                                                        @if($link->field_name != 'Rekap Hilang Linen')
+                                                        <li class="{{ $active ? 'mm-active' : '' }}">
+                                                            <a href="{{ route($link->field_action) }}">{{ $link->field_name }}</a>
+                                                        </li>
+                                                      @endif
                                                   @endforeach
                                               @endif
                                           </ul>

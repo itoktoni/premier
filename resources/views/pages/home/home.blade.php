@@ -10,7 +10,7 @@
                         <div class="col-12">
                             <span class="text-muted mb-2 d-block text-truncate">Kotor Kemarin</span>
                             <h4 class="mb-1">
-                                <span class="counter-value" data-target="{{ $bersih }}"></span>
+                                <span class="counter-value" data-target="{{ $kemarin }}"></span>
                             </h4>
                         </div>
                     </div>
@@ -35,7 +35,7 @@
             </div><!-- end card -->
         </div><!-- end col -->
 
-        <div class="col-xl-3 col-md-6">
+        <div class="col-xl-2 col-md-6">
             <!-- card -->
             <div class="card card-h-50">
                 <!-- card body -->
@@ -52,7 +52,7 @@
             </div><!-- end card -->
         </div><!-- end col-->
 
-        <div class="col-xl-3 col-md-6">
+        <div class="col-xl-2 col-md-6">
             <!-- card -->
             <div class="card card-h-50">
                 <!-- card body -->
@@ -69,7 +69,7 @@
             </div><!-- end card -->
         </div><!-- end col -->
 
-        <div class="col-xl-3 col-md-6">
+        <div class="col-xl-2 col-md-6">
             <!-- card -->
             <div class="card card-h-50">
                 <!-- card body -->
@@ -95,7 +95,7 @@
                         <div class="col-12">
                             <span class="text-muted mb-2 d-block text-truncate">Total Register</span>
                             <h4 class="mb-1">
-                                <span class="counter-value" data-target="{{ $available }}"></span>
+                                <span class="counter-value" data-target="{{ $register }}"></span>
                             </h4>
                         </div>
                     </div>
@@ -120,7 +120,7 @@
             </div><!-- end card -->
         </div><!-- end col -->
 
-         <div class="col-xl-3 col-md-6">
+         <div class="col-xl-2 col-md-6">
             <!-- card -->
             <div class="card card-h-50">
                 <!-- card body -->
@@ -137,7 +137,7 @@
             </div><!-- end card -->
         </div><!-- end col -->
 
-         <div class="col-xl-3 col-md-6">
+         <div class="col-xl-2 col-md-6">
             <!-- card -->
             <div class="card card-h-50">
                 <!-- card body -->
@@ -154,7 +154,7 @@
             </div><!-- end card -->
         </div><!-- end col -->
 
-         <div class="col-xl-3 col-md-6">
+         <div class="col-xl-2 col-md-6">
             <!-- card -->
             <div class="card card-h-50">
                 <!-- card body -->

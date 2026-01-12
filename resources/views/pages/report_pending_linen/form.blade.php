@@ -7,7 +7,7 @@
                 <x-form-input col="3" type="date" label="Tanggal Awal" name="start_pending" />
                 <x-form-input col="3" type="date" label="Tanggal Akhir" name="end_pending" />
                 <x-form-select col="6" class="search" name="view_ruangan_id" label="Ruangan" :options="$ruangan" />
-                <x-form-select col="6" class="search" name="view_linen_id" label="Jenis Linen" :options="$jenis" />
+                <x-form-select col="6" name="type" label="Type Transaksi" :options="$transaction" />
             @endbind
 
         </x-form>
