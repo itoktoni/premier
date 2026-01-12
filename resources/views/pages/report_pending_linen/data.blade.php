@@ -41,7 +41,6 @@
 				<th>JUMLAH PEMAKAIAN LINEN</th>
 				<th>TANGGAL KOTOR</th>
 				<th>STATUS</th>
-				<th>PROSES TERAKHIR</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -59,7 +58,6 @@
 				<td class="text-right">{{ $table->view_transaksi_bersih_total ?? 0 }}</td>
 				<td>{{ formatDate($table->outstanding_created_at) }}</td>
 				<td>{{ TransactionType::getDescription($table->outstanding_status_transaksi) }}</td>
-				<td>{{ ($table->view_status_proses) }}</td>
 			</tr>
 			@empty
 			@endforelse
