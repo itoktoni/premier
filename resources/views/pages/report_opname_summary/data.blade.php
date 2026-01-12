@@ -121,8 +121,8 @@
             <tr>
                 <th>Total Register</th>
                 <th>Total Scan Linen</th>
-                <th>Total Hilang Rs</th>
-                <th>Total Hilang Laundry</th>
+                <th>Total belum terbaca di Rs</th>
+                <th>Total belum terbaca di Laundry</th>
                 <th>Total Summary</th>
             </tr>
         </thead>
