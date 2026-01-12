@@ -1,7 +1,22 @@
 <x-layout>
     <div class="row">
 
-
+        <div class="col-xl-3 col-md-6">
+            <!-- card -->
+            <div class="card card-h-50">
+                <!-- card body -->
+                <div class="card-body">
+                    <div class="row align-items-center">
+                        <div class="col-12">
+                            <span class="text-muted mb-2 d-block text-truncate">Kotor Kemarin</span>
+                            <h4 class="mb-1">
+                                <span class="counter-value" data-target="{{ $bersih }}"></span>
+                            </h4>
+                        </div>
+                    </div>
+                </div><!-- end card body -->
+            </div><!-- end card -->
+        </div><!-- end col -->
 
         <div class="col-xl-3 col-md-6">
             <!-- card -->
@@ -64,6 +79,23 @@
                             <span class="text-muted mb-2 d-block text-truncate">Rewash</span>
                             <h4 class="mb-1">
                                 <span class="counter-value" data-target="{{ $rewash }}"></span>
+                            </h4>
+                        </div>
+                    </div>
+                </div><!-- end card body -->
+            </div><!-- end card -->
+        </div><!-- end col -->
+
+         <div class="col-xl-3 col-md-6">
+            <!-- card -->
+            <div class="card card-h-50">
+                <!-- card body -->
+                <div class="card-body">
+                    <div class="row align-items-center">
+                        <div class="col-12">
+                            <span class="text-muted mb-2 d-block text-truncate">Total Register</span>
+                            <h4 class="mb-1">
+                                <span class="counter-value" data-target="{{ $available }}"></span>
                             </h4>
                         </div>
                     </div>

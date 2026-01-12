@@ -3,7 +3,7 @@
 		<td></td>
 		<td colspan="6">
 			<h3>
-				<b>REKAP KOTOR BERDASARKAN JENIS LINEN</b>
+				<b>{{ moduleName() }}</b>
 			</h3>
 		</td>
 		<td rowspan="3">
