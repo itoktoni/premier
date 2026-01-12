@@ -3,7 +3,7 @@
 		<td></td>
 		<td colspan="6">
 			<h3>
-				<b>{{ moduleName() }} : {{ $opname->field_primary ?? '' }} </b>
+				<b>{{ strtoupper(moduleName()) }} : {{ $opname->field_primary ?? '' }} </b>
 			</h3>
 		</td>
 		<td rowspan="3">
