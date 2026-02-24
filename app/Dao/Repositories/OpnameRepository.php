@@ -42,7 +42,8 @@ class OpnameRepository extends MasterRepository implements CrudInterface
     public function getOpnameByID($opname_id)
     {
         $query = $this->getOpnameReport()
-            ->where(OpnameDetail::field_opname(), $opname_id);
+            ->where(OpnameDetail::field_opname(), $opname_id)
+            ->showSql();
 
         return $query;
     }
