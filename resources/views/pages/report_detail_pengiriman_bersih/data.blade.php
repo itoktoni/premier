@@ -40,6 +40,7 @@
 				<th>LINEN </th>
 				<th>RUMAH SAKIT</th>
 				<th>RUANGAN</th>
+				<th>JUMLAH PEMAKAIAN LINEN</th>
 				<th>TANGGAL PENGIRIMAN BERSIH</th>
 				<th>OPERATOR</th>
 			</tr>
@@ -54,6 +55,7 @@
 				<td>{{ $table->jenis_nama }}</td>
 				<td>{{ $table->rs_nama }}</td>
 				<td>{{ $table->ruangan_nama }}</td>
+				<td>{{ $table->total_bersih }}</td>
 				<td>{{ formatDate($table->bersih_report) }}</td>
 				<td>{{ $table->name ?? '' }}</td>
 			</tr>
