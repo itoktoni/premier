@@ -62,6 +62,10 @@ class ReportPendingLinenController extends MinimalController
             $query = $query->whereDate(ViewOutstanding::field_pending_created_at(), '<=', $end_date);
         }
 
+        if ($rs = $request->view_rs_id) {
+            $query = $query->where(ViewOutstanding::field_rs_ori(), $rs);
+        }
+
         if($type = $request->type)
         {
             $query = $query->where('outstanding.'.ViewOutstanding::field_status_transaction(), $type);
