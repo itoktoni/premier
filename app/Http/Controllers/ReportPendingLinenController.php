@@ -63,7 +63,7 @@ class ReportPendingLinenController extends MinimalController
         }
 
         if ($rs = $request->view_rs_id) {
-            $query = $query->where(ViewOutstanding::field_rs_ori(), $rs);
+            $query = $query->where('outstanding.'.ViewOutstanding::field_rs_ori(), $rs);
         }
 
         if($type = $request->type)
