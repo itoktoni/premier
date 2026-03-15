@@ -5,6 +5,7 @@ use App\Dao\Enums\CetakType;
 use App\Dao\Enums\CuciType;
 use App\Dao\Enums\HilangType;
 use App\Dao\Enums\LogType;
+use App\Dao\Enums\OpnameType;
 use App\Dao\Enums\OwnershipType;
 use App\Dao\Enums\ProcessType;
 use App\Dao\Enums\RegisterType;
@@ -774,6 +775,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
         try {
             $today = today()->format('Y-m-d');
             $data = Opname::with([HAS_RS])
+                ->where(Opname::field_status(), OpnameType::Proses)
                 ->where(Opname::field_start(), '<=', $today)
                 ->where(Opname::field_end(), '>=', $today)
                 ->get();
