@@ -8,6 +8,7 @@ use App\Dao\Enums\ProcessType;
 use App\Dao\Enums\RegisterType;
 use App\Dao\Enums\TransactionType;
 use App\Dao\Models\JenisLinen;
+use App\Dao\Models\Pending;
 use App\Dao\Models\Rs;
 use App\Dao\Models\Ruangan;
 use App\Dao\Models\ViewDetailLinen;
@@ -45,30 +46,63 @@ class ReportPendingLinenController extends MinimalController
             'jenis' => $jenis,
             'register' => $register,
             'cuci' => $cuci,
-            'transaction' => $transaction,
+            'transaction' => array_merge($transaction, [
+                'Pending' => 'Pending',
+            ])
         ];
     }
 
     private function getQuery($request)
     {
-        $query = self::$repository->getPrint()
-            ->where('outstanding.'.ViewOutstanding::field_status_hilang(), '!=', HilangType::NORMAL);
+        $query = Pending::query()
+            ->leftJoin('rs', 'rs.rs_id', '=', 'pending.pending_id_rs')
+            ->leftJoin('ruangan', 'ruangan.ruangan_id', '=', 'pending.pending_id_ruangan')
+            ->leftJoin('jenis_linen', 'jenis_linen.jenis_id', '=', 'pending.pending_id_jenis')
+            ->leftJoin('view_detail_linen', 'view_detail_linen.view_linen_rfid', '=', 'pending.pending_rfid')
+            ->join('config_linen', function ($join) {
+                $join->on('config_linen.detail_rfid', '=', 'pending.pending_rfid') // Perbaikan penulisan detail_rfid / details_rfid
+                    ->on('config_linen.rs_id', '=', 'rs.rs_id');
+            })
+            ->select([
+                'pending.*',
+                'rs.rs_nama',
+                'ruangan.ruangan_nama',
+                'jenis_linen.jenis_nama',
+                'view_detail_linen.view_transaksi_bersih_total',
+                'view_detail_linen.view_status_proses',
+            ]);
+
+        if ($rs_id = $request->get(ViewDetailLinen::field_rs_id())) {
+            $query = $query->where('pending.pending_id_rs', $rs_id);
+        }
 
         if ($start_date = $request->start_pending) {
-            $query = $query->whereDate(ViewOutstanding::field_pending_created_at(), '>=', $start_date);
+            $query = $query->whereDate('pending.pending_kotor_at', '>=', $start_date);
         }
 
         if ($end_date = $request->end_pending) {
-            $query = $query->whereDate(ViewOutstanding::field_pending_created_at(), '<=', $end_date);
+            $query = $query->whereDate('pending.pending_kotor_at', '<=', $end_date);
         }
 
-        if ($rs = $request->view_rs_id) {
-            $query = $query->where('outstanding.'.ViewOutstanding::field_rs_ori(), $rs);
+         if ($start_bersih = $request->start_bersih) {
+            $query = $query->whereDate('pending.pending_bersih_at', '>=', $start_bersih);
         }
 
-        if($type = $request->type)
-        {
-            $query = $query->where('outstanding.'.ViewOutstanding::field_status_transaction(), $type);
+        if ($end_bersih = $request->end_bersih) {
+            $query = $query->whereDate('pending.pending_bersih_at', '<=', $end_bersih);
+        }
+
+        if ($status = $request->type) {
+
+            if($request->get('type') == 'Pending')
+            {
+               $query = $query->whereNull('pending.pending_bersih_at');
+            }
+            else
+            {
+                $query = $query->where('pending.pending_transaksi', $status);
+            }
+
         }
 
         return $query->get();

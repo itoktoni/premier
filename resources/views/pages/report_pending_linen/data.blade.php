@@ -39,8 +39,9 @@
 				<th>RUMAH SAKIT</th>
 				<th>RUANGAN</th>
 				<th>JUMLAH PEMAKAIAN LINEN</th>
+				<th>TRANSAKSI</th>
 				<th>TANGGAL KOTOR</th>
-				<th>STATUS</th>
+				<th>TANGGAL BERSIH</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -51,13 +52,14 @@
 			@forelse($data as $table)
 			<tr>
 				<td>{{ $loop->iteration }}</td>
-				<td>{{ $table->field_primary }}</td>
+				<td>{{ $table->pending_rfid }}</td>
 				<td>{{ $table->jenis_nama }}</td>
-				<td>{{ $table->field_rs_ori_name }}</td>
-				<td>{{ $table->field_ruangan_name }}</td>
+				<td>{{ $table->rs_nama }}</td>
+				<td>{{ $table->ruangan_nama }}</td>
 				<td class="text-right">{{ $table->view_transaksi_bersih_total ?? 0 }}</td>
-				<td>{{ formatDate($table->outstanding_created_at) }}</td>
-				<td>{{ TransactionType::getDescription($table->outstanding_status_transaksi) }}</td>
+				<td>{{ $table->pending_transaksi }}</td>
+				<td>{{ formatDate($table->pending_kotor_at) }}</td>
+				<td>{{ formatDate($table->pending_bersih_at) }}</td>
 			</tr>
 			@empty
 			@endforelse
