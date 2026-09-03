@@ -56,8 +56,20 @@
 				<td>{{ formatDate($table->view_tanggal_create) }}</td>
 				<td>{{ $table->opname_detail_transaksi ? TransactionType::getDescription($table->opname_detail_transaksi) : 'Belum Register' }}</td>
 				<td>{{ $table->opname_detail_proses ? ProcessType::getDescription($table->opname_detail_proses) : 'Belum Register' }}</td>
-				<td>{{ formatDate($table->view_tanggal_update) }}</td>
-				<td>{{ $table->view_tanggal_update ? \Carbon\Carbon::createFromFormat('Y-m-d H:s:i', $table->view_tanggal_update)->diff(now())->format('%a') : '0' }} Hari</td>
+				<td>
+					@if ($table->opname_detail_ketemu == 1)
+					{{ formatDate($table->opname_detail_waktu) }}
+					@else
+					{{ formatDate($table->opname_detail_updated_at) }}
+					@endif
+				</td>
+				<td>
+					@if ($table->opname_detail_ketemu == 1)
+					{{ \Carbon\Carbon::createFromFormat('Y-m-d H:s:i', $table->opname_detail_waktu)->diff(now())->format('%a') }}
+					@else
+					{{ $table->opname_detail_updated_at ? \Carbon\Carbon::createFromFormat('Y-m-d H:s:i', $table->opname_detail_updated_at)->diff(now())->format('%a') : '0' }} Hari
+					@endif
+				</td>
 				<td>{{ $table->view_transaksi_bersih_total ?? 0 }}</td>
 				<td>{{ $table->name }}</td>
 			</tr>
