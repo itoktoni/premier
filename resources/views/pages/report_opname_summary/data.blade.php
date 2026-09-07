@@ -59,7 +59,7 @@
 			@endphp
             @forelse($map as $key => $table)
 			@php
-			$tembak_so = $table->where('opname_detail_scan_rs', BooleanType::YES)
+			$tembak_so = $table
                         ->where('opname_detail_ketemu', 1)
                         ->where('opname_detail_transaksi', '!=', 0)
                         ->count();
@@ -89,12 +89,7 @@
 			<tr>
 				<td colspan="2">Total</td>
 				@php
-				$sub_tembak_so = $data->where('opname_detail_scan_rs', BooleanType::YES)
-                    ->where('opname_detail_ketemu', 1)
-                    ->where('opname_detail_transaksi', '!=', 0)
-                    ->count();
-
-                $sub_tembak_laundry = $data->where('opname_detail_scan_rs', BooleanType::NO)
+				$sub_tembak_so = $data
                     ->where('opname_detail_ketemu', 1)
                     ->where('opname_detail_transaksi', '!=', 0)
                     ->count();
@@ -125,8 +120,7 @@
         <thead>
             <tr>
                 <th>Total Register</th>
-                <th>Total Scan RS</th>
-                <th>Total Scan Laundry</th>
+                <th>Total Scan Linen</th>
                 <th>Total belum terbaca di Rs</th>
                 <th>Total belum terbaca di Laundry</th>
                 <th>Total Summary</th>
@@ -136,10 +130,9 @@
             <tr>
                 <td>{{ $register }}</td>
                 <td>{{ $sub_tembak_so }}</td>
-                <td>{{ $sub_tembak_laundry }}</td>
                 <td>{{ $sub_hilang_rs }}</td>
                 <td>{{ $sub_hilang_warehouse }}</td>
-                <td>{{ $grand_total + $sub_tembak_laundry  }}</td>
+                <td>{{ $grand_total }}</td>
             </tr>
         </tbody>
     </table>
