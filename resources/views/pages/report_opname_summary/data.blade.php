@@ -94,6 +94,11 @@
                     ->where('opname_detail_transaksi', '!=', 0)
                     ->count();
 
+                $sub_tembak_laundry = $data->where('opname_detail_scan_rs', BooleanType::NO)
+                    ->where('opname_detail_ketemu', 1)
+                    ->where('opname_detail_transaksi', '!=', 0)
+                    ->count();
+
 				$sub_not_register = $data->where('opname_detail_transaksi', BooleanType::NO)->count();
 				$sub_total = $data->count();
 
@@ -120,7 +125,8 @@
         <thead>
             <tr>
                 <th>Total Register</th>
-                <th>Total Scan Linen</th>
+                <th>Total Scan RS</th>
+                <th>Total Scan Laundry</th>
                 <th>Total belum terbaca di Rs</th>
                 <th>Total belum terbaca di Laundry</th>
                 <th>Total Summary</th>
@@ -130,9 +136,10 @@
             <tr>
                 <td>{{ $register }}</td>
                 <td>{{ $sub_tembak_so }}</td>
+                <td>{{ $sub_tembak_laundry }}</td>
                 <td>{{ $sub_hilang_rs }}</td>
                 <td>{{ $sub_hilang_warehouse }}</td>
-                <td>{{ $grand_total }}</td>
+                <td>{{ $grand_total + $sub_tembak_laundry  }}</td>
             </tr>
         </tbody>
     </table>
