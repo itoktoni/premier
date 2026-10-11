@@ -53,15 +53,15 @@
 			@forelse($data as $table)
 			<tr>
 				<td>{{ $loop->iteration }}</td>
-				<td>{{ $table->detail_lama }}</td>
-				<td>{{ $table->field_primary }}</td>
-				<td>{{ $table->field_name }}</td>
-				<td>{{ $table->field_rs_name }}</td>
-				<td>{{ $table->field_ruangan_name }}</td>
-				<td>{{ $table->field_status_cuci }}</td>
-				<td>{{ $table->field_status_register }}</td>
+				<td>{{ $table->rfid_lama }}</td>
+				<td>{{ $table->rfid_baru }}</td>
+				<td>{{ $table->jenis_nama }}</td>
+				<td>{{ $table->rs_nama }}</td>
+				<td>{{ $table->ruangan_nama }}</td>
+				<td>{{ $table->detail_status_cuci }}</td>
+				<td>{{ $table->detail_status_register }}</td>
 				<td>{{ formatDate($table->detail_pengantian_waktu) }}</td>
-				<td>{{ $table->field_created_name }}</td>
+				<td>{{ $table->operator_name }}</td>
 			</tr>
 			@empty
 			@endforelse
