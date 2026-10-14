@@ -34,8 +34,8 @@
 		<thead>
 			<tr>
 				<th width="1">No. </th>
-				<th>LINEN LAMA</th>
-				<th>LINEN BARU</th>
+				<th>NO RFID LAMA</th>
+				<th>NO RFID BARU</th>
 				<th>JENIS LINEN</th>
 				<th>RUMAH SAKIT</th>
 				<th>RUANGAN</th>
