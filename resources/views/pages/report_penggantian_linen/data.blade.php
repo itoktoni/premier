@@ -39,8 +39,7 @@
 				<th>JENIS LINEN</th>
 				<th>RUMAH SAKIT</th>
 				<th>RUANGAN</th>
-				<th>CUCI/RENTAL</th>
-				<th>STATUS REGISTRASI</th>
+				<th>KETERANGAN</th>
 				<th>TANGGAL PENGGANTIAN</th>
 				<th>OPERATOR</th>
 			</tr>
@@ -58,8 +57,7 @@
 				<td>{{ $table->jenis_nama }}</td>
 				<td>{{ $table->rs_nama }}</td>
 				<td>{{ $table->ruangan_nama }}</td>
-				<td>{{ $table->detail_status_cuci }}</td>
-				<td>{{ $table->detail_status_register }}</td>
+				<td>{{ $table->keterangan }}</td>
 				<td>{{ formatDate($table->detail_pengantian_waktu) }}</td>
 				<td>{{ $table->operator_name }}</td>
 			</tr>

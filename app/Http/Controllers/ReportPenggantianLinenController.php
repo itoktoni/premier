@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Dao\Enums\CuciType;
 use App\Dao\Enums\RegisterType;
+use App\Dao\Enums\TransactionType;
 use App\Dao\Models\Detail;
+use App\Dao\Models\GantiChip;
 use App\Dao\Models\JenisLinen;
 use App\Dao\Models\Rs;
 use App\Dao\Models\Ruangan;
@@ -30,6 +32,7 @@ class ReportPenggantianLinenController extends MinimalController
         $ruangan = Ruangan::getOptions();
         $cuci = CuciType::getOptions();
         $register = RegisterType::getOptions();
+        $keterangan = TransactionType::getOptions();
 
         self::$share = [
             'rs' => $rs,
@@ -37,46 +40,44 @@ class ReportPenggantianLinenController extends MinimalController
             'jenis' => $jenis,
             'register' => $register,
             'cuci' => $cuci,
+            'keterangan' => $keterangan,
         ];
     }
 
     private function getQuery($request)
     {
+        $ganti = GantiChip::getTableName();
         $detail = Detail::getTableName();
         $jenis = JenisLinen::getTableName();
         $rs = Rs::getTableName();
         $ruangan = Ruangan::getTableName();
         $users = with(new User)->getTable();
 
-        $query = Detail::query()
+        $query = GantiChip::query()
             ->select([
-                $detail.'.'.Detail::field_primary().' as rfid_baru',
-                $detail.'.detail_lama as rfid_lama',
-                $detail.'.detail_status_cuci as detail_status_cuci',
-                $detail.'.detail_status_register as detail_status_register',
-                $detail.'.detail_pengantian_waktu as detail_pengantian_waktu',
+                $ganti.'.'.GantiChip::field_lama().' as rfid_lama',
+                $ganti.'.'.GantiChip::field_baru().' as rfid_baru',
+                $ganti.'.'.GantiChip::field_keterangan().' as keterangan',
+                $ganti.'.'.GantiChip::field_tanggal().' as detail_pengantian_waktu',
                 $jenis.'.'.JenisLinen::field_name().' as jenis_nama',
                 $rs.'.'.Rs::field_name().' as rs_nama',
                 $ruangan.'.'.Ruangan::field_name().' as ruangan_nama',
                 $users.'.'.User::field_name().' as operator_name',
             ])
+            ->leftJoin($detail, $detail.'.'.Detail::field_primary(), '=', $ganti.'.'.GantiChip::field_baru())
             ->leftJoin($jenis, $jenis.'.'.JenisLinen::field_primary(), '=', $detail.'.'.Detail::field_jenis_id())
             ->leftJoin($rs, $rs.'.'.Rs::field_primary(), '=', $detail.'.'.Detail::field_rs_id())
             ->leftJoin($ruangan, $ruangan.'.'.Ruangan::field_primary(), '=', $detail.'.'.Detail::field_ruangan_id())
-            ->leftJoin($users, $users.'.'.User::field_primary(), '=', $detail.'.detail_pengantian_user')
-            ->where(function ($sql) use ($detail) {
-                $sql->whereNotNull($detail.'.detail_pengantian_waktu')
-                    ->orWhereNotNull($detail.'.detail_lama');
-            });
+            ->leftJoin($users, $users.'.'.User::field_primary(), '=', $ganti.'.'.GantiChip::field_by());
 
             if($request['filter_start'])
             {
-                $query = $query->whereDate($detail.'.detail_pengantian_waktu', '>=', $request['filter_start']);
+                $query = $query->whereDate($ganti.'.'.GantiChip::field_tanggal(), '>=', $request['filter_start']);
             }
 
             if($request['filter_end'])
             {
-                $query = $query->whereDate($detail.'.detail_pengantian_waktu', '<=', $request['filter_end']);
+                $query = $query->whereDate($ganti.'.'.GantiChip::field_tanggal(), '<=', $request['filter_end']);
             }
 
             if($request['view_rs_id'])
@@ -94,7 +95,12 @@ class ReportPenggantianLinenController extends MinimalController
                 $query = $query->where($detail.'.'.Detail::field_jenis_id(), $request['view_linen_id']);
             }
 
-            return $query->orderBy($jenis.'.'.JenisLinen::field_name(), 'ASC')->get();
+            if($request['filter_keterangan'])
+            {
+                $query = $query->where($ganti.'.'.GantiChip::field_keterangan(), $request['filter_keterangan']);
+            }
+
+            return $query->orderBy($ganti.'.'.GantiChip::field_tanggal(), 'DESC')->get();
     }
 
     public function getPrint(Request $request)
